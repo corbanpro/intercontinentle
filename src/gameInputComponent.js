@@ -39,7 +39,10 @@ const GameInputComponent = () => {
   const [userGuessCount, setGuessCount] = useState(0);
 
   const allCountryNames = Object.keys(CountryData);
-  const [correctCountryName] = useState(GetRandomCountryName(allCountryNames));
+  const [correctCountryName, setCorrectCountryName] = useState(
+    GetRandomCountryName(allCountryNames)
+  );
+  console.log(correctCountryName);
   const correctCountryData = CountryData[correctCountryName];
 
   const firstClueCategory = GetRandomClueCategory(correctCountryData);
@@ -66,23 +69,27 @@ const GameInputComponent = () => {
           fact: CleanForDisplay(newClueFact),
         },
       ]);
+      setGuessCount(userGuessCount + 1);
+      setGuesses([...userGuesses, userGuess]);
+      setInputValue("");
     }
 
-    setGuessCount(userGuessCount + 1);
-    setGuesses([...userGuesses, userGuess]);
-    setInputValue("");
-
-    // End the game if the correct answer is userGuessed or there are 10 userGuesses
-    if (isCorrect || userGuessCount === maxGuesses) {
-      alert(
-        isCorrect
-          ? "Congratulations! You userGuessed the correct country!"
-          : "Game Over. You reached the maximum number of userGuesses."
-      );
-      // Reset the game
-      setGuessCount(0);
-      setGuesses([]);
-      setClues([]);
+    if (isCorrect || userGuessCount >= maxGuesses) {
+      if (isCorrect) {
+        const playAgain = window.confirm(
+          "Congratulations! You guessed the correct country! Play again?"
+        );
+        if (playAgain) {
+          RestartGame();
+        }
+      } else {
+        const playAgain = window.confirm(
+          `Sorry, you didn't guess the correct country. The correct country was ${correctCountryName}. Play again?`
+        );
+        if (playAgain) {
+          RestartGame();
+        }
+      }
     }
   };
 
@@ -90,11 +97,25 @@ const GameInputComponent = () => {
     setInputValue(e.target.value);
   };
 
+  const RestartGame = () => {
+    setGuessCount(0);
+    setGuesses([]);
+    setClues([]);
+    setCorrectCountryName(GetRandomCountryName(allCountryNames));
+    setClues([
+      {
+        category: CleanForDisplay(GetRandomClueCategory(correctCountryData)),
+        fact: CleanForDisplay(correctCountryData[GetRandomClueCategory(correctCountryData)]),
+      },
+    ]);
+    setInputValue("");
+  };
+
   return (
     <div className="gameInputComponent">
       <div className="cluesContainer">
-        {clues.map((clue, index) => (
-          <div key={index} className="clue">
+        {clues.map((clue, i) => (
+          <div key={i} className="clue">
             {clue.category}: {clue.fact}
           </div>
         ))}
@@ -107,16 +128,16 @@ const GameInputComponent = () => {
           value={inputValue}
           onChange={handleInputChange}
         />
-      </form>
 
-      <input type="submit" value="make a userGuess"></input>
+        <input type="submit" value="make a guess"></input>
+      </form>
 
       {userGuesses.length > 0 && (
         <div className="userGuessesContainer">
           <h3>Guesses:</h3>
           <ul>
-            {userGuesses.map((entry, index) => (
-              <li key={index} className={entry.isCorrect ? "correct" : "incorrect"}>
+            {userGuesses.map((entry, i) => (
+              <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
                 {entry.value}
               </li>
             ))}
