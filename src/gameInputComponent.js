@@ -32,19 +32,22 @@ const GetRandomCountryName = (allCountryNames) => {
   return allCountryNames[randomValidIndex];
 };
 
-const GameInputComponent = () => {
+function GameInputComponent() {
+  // initialize user guess counts and states
   const maxGuesses = 10;
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState([]);
   const [userGuessCount, setGuessCount] = useState(0);
 
+  // initialize the correct country and its data
   const allCountryNames = Object.keys(CountryData);
   const [correctCountryName, setCorrectCountryName] = useState(
     GetRandomCountryName(allCountryNames)
   );
-  console.log(correctCountryName);
   const correctCountryData = CountryData[correctCountryName];
+  console.log(correctCountryName);
 
+  // initialize the first clue
   const firstClueCategory = GetRandomClueCategory(correctCountryData);
   const firstClueFact = correctCountryData[firstClueCategory];
   const [clues, setClues] = useState([
@@ -56,24 +59,11 @@ const GameInputComponent = () => {
 
   const handleAddEntry = (e) => {
     e.preventDefault();
+
     const isCorrect = CleanForComparison(inputValue) === CleanForComparison(correctCountryName);
     const userGuess = { value: inputValue, isCorrect };
 
-    if (!isCorrect) {
-      const newClueCategory = GetRandomClueCategory(correctCountryData, clues);
-      const newClueFact = CleanForDisplay(correctCountryData[newClueCategory]);
-      setClues([
-        ...clues,
-        {
-          category: CleanForDisplay(newClueCategory),
-          fact: CleanForDisplay(newClueFact),
-        },
-      ]);
-      setGuessCount(userGuessCount + 1);
-      setGuesses([...userGuesses, userGuess]);
-      setInputValue("");
-    }
-
+    // end the game if correct or out of guesses
     if (isCorrect || userGuessCount >= maxGuesses) {
       if (isCorrect) {
         const playAgain = window.confirm(
@@ -90,7 +80,22 @@ const GameInputComponent = () => {
           RestartGame();
         }
       }
+      return;
     }
+
+    // add a new clue and increment the guess count
+    const newClueCategory = GetRandomClueCategory(correctCountryData, clues);
+    const newClueFact = CleanForDisplay(correctCountryData[newClueCategory]);
+    setClues([
+      ...clues,
+      {
+        category: CleanForDisplay(newClueCategory),
+        fact: CleanForDisplay(newClueFact),
+      },
+    ]);
+    setGuessCount(userGuessCount + 1);
+    setGuesses([...userGuesses, userGuess]);
+    setInputValue("");
   };
 
   const handleInputChange = (e) => {
@@ -146,6 +151,6 @@ const GameInputComponent = () => {
       )}
     </div>
   );
-};
+}
 
 export default GameInputComponent;
