@@ -1,6 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
-import GameInputComponent from './gameInputComponent';
+import "./App.css";
+import GameInputComponent from "./gameInputComponent";
 
 function App() {
   return (
