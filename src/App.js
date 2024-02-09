@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>React Text Input Example</h1>
+        <h1>Intercontinentle</h1>
         <GameInputComponent />
       </header>
     </div>
