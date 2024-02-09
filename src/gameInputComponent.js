@@ -1,73 +1,93 @@
 // GameInputComponent.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./GameInputComponent.css";
-import Papa from "papaparse"; // CSV parsing library
+import CountryData from "./countries.json";
+
+const CleanForDisplay = (str) => {
+  return str.replaceAll("_", " ").toUpperCase();
+};
+
+const CleanForComparison = (str) => {
+  return str.replaceAll("_", " ").toLowerCase().trim();
+};
+
+const ClueAlreadyUsed = (clue, clues) => {
+  return clues.some((existingClue) => existingClue.category === clue.category);
+};
+
+const GetRandomClueCategory = (correctCountryData, clues = []) => {
+  const randomNumber = Math.floor(Math.random() * 99999999);
+  // this does weird -1 and +1 stuff to avoid the first key in the object
+  const randomClueKeyindex = (randomNumber % (Object.keys(correctCountryData).length - 1)) + 1;
+  const randomClue = Object.keys(correctCountryData)[randomClueKeyindex];
+
+  if (ClueAlreadyUsed(randomClue, clues)) {
+    return GetRandomClueCategory(correctCountryData, clues);
+  }
+  return randomClue;
+};
+
+const GetRandomCountryName = (allCountryNames) => {
+  const randomValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
+  return allCountryNames[randomValidIndex];
+};
 
 const GameInputComponent = () => {
+  const maxGuesses = 10;
   const [inputValue, setInputValue] = useState("");
-  const [entries, setEntries] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState("");
-  const [clues, setClues] = useState([]);
-  const [guessCount, setGuessCount] = useState(0);
+  const [userGuesses, setGuesses] = useState([]);
+  const [userGuessCount, setGuessCount] = useState(0);
 
-  useEffect(() => {
-    // Read countries.csv and set a random country as the correct answer
-    fetch(process.env.PUBLIC_URL + "/countries.csv")
-      .then((response) => response.text())
-      .then((data) => {
-        const parsedData = Papa.parse(data, { header: true });
-        const randomIndex = Math.floor(Math.random() * parsedData.data.length);
-        setCorrectAnswer(parsedData.data[randomIndex + 2].Country);
+  const allCountryNames = Object.keys(CountryData);
+  const [correctCountryName] = useState(GetRandomCountryName(allCountryNames));
+  const correctCountryData = CountryData[correctCountryName];
 
-        // Display the first clue when the correct answer is set
-        const firstClueCategory = Object.keys(parsedData.data[randomIndex])[0];
-        const firstClueFact = parsedData.data[randomIndex][firstClueCategory];
-        const formattedFirstClueCategory = firstClueCategory
-          .replace("_", " ")
-          .toUpperCase();
-        setClues([`Clue #1: ${formattedFirstClueCategory} - ${firstClueFact}`]);
-      })
-      .catch((error) => console.error("Error reading countries.csv:", error));
-  }, []); // Run this effect only once when the component mounts
+  const firstClueCategory = GetRandomClueCategory(correctCountryData);
+  const firstClueFact = correctCountryData[firstClueCategory];
+  const [clues, setClues] = useState([
+    {
+      category: CleanForDisplay(firstClueCategory),
+      fact: CleanForDisplay(firstClueFact),
+    },
+  ]);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+  const handleAddEntry = (e) => {
+    e.preventDefault();
+    const isCorrect = CleanForComparison(inputValue) === CleanForComparison(correctCountryName);
+    const userGuess = { value: inputValue, isCorrect };
 
-  const handleAddEntry = () => {
-    const isCorrect =
-      inputValue.trim()?.toLowerCase() === correctAnswer?.toLowerCase();
-    const entry = { value: inputValue, isCorrect };
-
-    if (!isCorrect && correctAnswer) {
-      // Generate a clue if the answer is incorrect and correctAnswer is available
-      const clueCategory = Object.keys(correctAnswer)[0];
-      const clueFact = correctAnswer[clueCategory];
-      const formattedClueCategory = clueCategory
-        .replace("_", " ")
-        .toUpperCase();
+    if (!isCorrect) {
+      const newClueCategory = GetRandomClueCategory(correctCountryData, clues);
+      const newClueFact = CleanForDisplay(correctCountryData[newClueCategory]);
       setClues([
         ...clues,
-        `Clue #${guessCount + 2}: ${formattedClueCategory} - ${clueFact}`,
+        {
+          category: CleanForDisplay(newClueCategory),
+          fact: CleanForDisplay(newClueFact),
+        },
       ]);
     }
 
-    setGuessCount(guessCount + 1);
-    setEntries([...entries, entry]);
+    setGuessCount(userGuessCount + 1);
+    setGuesses([...userGuesses, userGuess]);
     setInputValue("");
 
-    // End the game if the correct answer is guessed or there are 10 guesses
-    if (isCorrect || guessCount === 9) {
+    // End the game if the correct answer is userGuessed or there are 10 userGuesses
+    if (isCorrect || userGuessCount === maxGuesses) {
       alert(
         isCorrect
-          ? "Congratulations! You guessed the correct country!"
-          : "Game Over. You reached the maximum number of guesses."
+          ? "Congratulations! You userGuessed the correct country!"
+          : "Game Over. You reached the maximum number of userGuesses."
       );
       // Reset the game
       setGuessCount(0);
-      setEntries([]);
+      setGuesses([]);
       setClues([]);
     }
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (
@@ -75,28 +95,28 @@ const GameInputComponent = () => {
       <div className="cluesContainer">
         {clues.map((clue, index) => (
           <div key={index} className="clue">
-            {clue}
+            {clue.category}: {clue.fact}
           </div>
         ))}
       </div>
 
-      <input
-        type="text"
-        placeholder="Enter country"
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      <button onClick={handleAddEntry}>Check Answer</button>
+      <form onSubmit={handleAddEntry}>
+        <input
+          type="text"
+          placeholder="Enter country"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </form>
 
-      {entries.length > 0 && (
-        <div className="entriesContainer">
-          <h3>Entries:</h3>
+      <input type="submit" value="make a userGuess"></input>
+
+      {userGuesses.length > 0 && (
+        <div className="userGuessesContainer">
+          <h3>Guesses:</h3>
           <ul>
-            {entries.map((entry, index) => (
-              <li
-                key={index}
-                className={entry.isCorrect ? "correct" : "incorrect"}
-              >
+            {userGuesses.map((entry, index) => (
+              <li key={index} className={entry.isCorrect ? "correct" : "incorrect"}>
                 {entry.value}
               </li>
             ))}
