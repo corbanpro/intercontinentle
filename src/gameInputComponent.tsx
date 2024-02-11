@@ -1,21 +1,24 @@
 // GameInputComponent.js
 import React, { useState } from "react";
 import "./GameInputComponent.css";
-import CountryData from "./countries.json";
+import { CountriesData, CountryData } from "./types/CountryData";
+import { Guess } from "./types/Guess";
+import { Clue } from "./types/Clue";
+import CountryJsonData from "./countries.json";
 
-const CleanForDisplay = (str) => {
+function CleanForDisplay(str: string): string {
   return str.replaceAll("_", " ").toUpperCase();
-};
+}
 
-const CleanForComparison = (str) => {
+function CleanForComparison(str: string): string {
   return str.replaceAll("_", " ").toLowerCase().trim();
-};
+}
 
-const ClueAlreadyUsed = (clue, clues) => {
-  return clues.some((existingClue) => existingClue.category === clue.category);
-};
+function ClueAlreadyUsed(clue: string, clues: Clue[]): boolean {
+  return clues.some((existingClue: Clue) => existingClue.category === clue);
+}
 
-const GetRandomClueCategory = (correctCountryData, clues = []) => {
+function GetRandomClueCategory(correctCountryData: CountryData, clues: Clue[] = []): string {
   const randomNumber = Math.floor(Math.random() * 99999999);
   // this does weird -1 and +1 stuff to avoid the first key in the object
   const randomClueKeyindex = (randomNumber % (Object.keys(correctCountryData).length - 1)) + 1;
@@ -25,19 +28,21 @@ const GetRandomClueCategory = (correctCountryData, clues = []) => {
     return GetRandomClueCategory(correctCountryData, clues);
   }
   return randomClue;
-};
+}
 
-const GetRandomCountryName = (allCountryNames) => {
+function GetRandomCountryName(allCountryNames: string[]): string {
   const randomValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
   return allCountryNames[randomValidIndex];
-};
+}
 
 function GameInputComponent() {
   // initialize user guess counts and states
   const maxGuesses = 10;
+
   const [inputValue, setInputValue] = useState("");
-  const [userGuesses, setGuesses] = useState([]);
+  const [userGuesses, setGuesses] = useState<Guess[]>([]);
   const [userGuessCount, setGuessCount] = useState(0);
+  const CountryData: CountriesData = CountryJsonData;
 
   // initialize the correct country and its data
   const allCountryNames = Object.keys(CountryData);
@@ -48,7 +53,7 @@ function GameInputComponent() {
   console.log(correctCountryName);
 
   // initialize the first clue
-  const firstClueCategory = GetRandomClueCategory(correctCountryData);
+  const firstClueCategory: string = GetRandomClueCategory(correctCountryData);
   const firstClueFact = correctCountryData[firstClueCategory];
   const [clues, setClues] = useState([
     {
@@ -57,7 +62,7 @@ function GameInputComponent() {
     },
   ]);
 
-  const handleAddEntry = (e) => {
+  const handleAddEntry = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const isCorrect = CleanForComparison(inputValue) === CleanForComparison(correctCountryName);
@@ -98,7 +103,7 @@ function GameInputComponent() {
     setInputValue("");
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 

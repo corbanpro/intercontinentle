@@ -22,6 +22,7 @@ filtered_long_countries <- long_countries %>%
   filter(count < 9)
 
 filtered_countries <- filtered_long_countries %>%
-  pivot_wider()
+  pivot_wider() %>%
+  select(!count)
 
 write_csv(filtered_countries, "../../public/filtered_countries.csv")
