@@ -11,7 +11,7 @@ export type CountryData = {
   coastline_distance: string;
   landlocked: string;
   latitude: string;
-  longitude: string; 
+  longitude: string;
   population: string;
   most_popular_religion: string;
   median_age: string;

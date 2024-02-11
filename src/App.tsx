@@ -1,5 +1,5 @@
 import "./App.css";
-import GameInputComponent from "./gameInputComponent";
+import GameInputComponent from "./gameInputComponent.tsx";
 
 function App() {
   return (
