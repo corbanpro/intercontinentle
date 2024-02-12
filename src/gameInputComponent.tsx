@@ -140,7 +140,7 @@ function GameInputComponent() {
           onChange={handleInputChange}
         />
 
-        <input type="submit" value="make a guess"></input>
+        <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
 
       {userGuesses.length > 0 && (
