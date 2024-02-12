@@ -135,6 +135,7 @@ function GameInputComponent() {
         <input
           type="text"
           placeholder="Enter country"
+          className="country-input"
           value={inputValue}
           onChange={handleInputChange}
         />

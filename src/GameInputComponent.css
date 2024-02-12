@@ -11,6 +11,16 @@ input {
   margin-bottom: 10px;
 }
 
+.country-input {
+  background-color: #282c34;
+  border-bottom: 5px solid #e57373;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: #f0f0f080;
+  font-size: 24px;
+}
+
 button {
   background-color: #4caf50;
   color: white;
