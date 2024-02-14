@@ -1,5 +1,5 @@
 /* GameInputComponent.css */
-.gameInputComponent {
+.game-input-component {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -35,7 +35,7 @@ button {
   border-radius: 16px;
   background-image: linear-gradient(45deg, #e57373, #e7cbcb);
   border-style: none;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   font-weight: 500;
 }
 
@@ -47,10 +47,6 @@ button {
 
 button:hover {
   background-color: #45a049;
-}
-
-.entriesContainer {
-  margin-top: 20px;
 }
 
 ul {
@@ -70,18 +66,32 @@ li {
   color: #e57373;
 }
 
-.cluesContainer {
+.clues-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
+  color: white;
+  font-size: 2.2rem;
+  width: 100%;
 }
 
-.clue {
-  background-color: #f0f0f0;
-  padding: 8px;
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: black
+.game-input-form {
+  margin-bottom: 2vh;
+}
+
+.clue-fact {
+  white-space: nowrap;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.guess-container {
+  color: white;
+  font-size: 1.75rem;
 }
