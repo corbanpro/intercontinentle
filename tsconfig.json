@@ -101,7 +101,7 @@
   "include": [
     "src/*.tsx",
     "src/*.ts",
-    "src/types/CountryData.ts",
+    "src/types/Country.ts",
     "src/index.js"
   ],
   "exclude": [
