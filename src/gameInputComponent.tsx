@@ -150,11 +150,12 @@ function GameInputComponent() {
         <input
           type="text"
           placeholder="Enter country"
+          className="country-input"
           value={inputValue}
           onChange={handleInputChange}
         />
 
-        <input type="submit" value="make a guess"></input>
+        <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
 
       {userGuesses.length > 0 && (
