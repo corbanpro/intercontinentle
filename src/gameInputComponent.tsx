@@ -15,10 +15,12 @@ function CleanForComparison(str: string): string {
   return str.replaceAll("_", " ").toLowerCase().trim();
 }
 
+// returns true if the clue category has already been used
 function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean {
   return existingClues.some((existingClue) => existingClue.category === clueCategory);
 }
 
+// returns a random clue category that hasn't been used yet
 function GetRandomClueCategory(
   countryData: TCountry,
   existingClues: TClue[]
@@ -34,17 +36,20 @@ function GetRandomClueCategory(
   return randClueCategory;
 }
 
+// returns a random country name
 function GetRandomCountryName(allCountryNames: TValidCountry[]): TValidCountry {
   const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
   return allCountryNames[randValidIndex];
 }
 
+// returns a random country
 function GetRandomCountry(): TCountry {
   const allCountryNames = Object.keys(CountryData) as TValidCountry[];
   const randCountryName = GetRandomCountryName(allCountryNames);
   return CountryData[randCountryName];
 }
 
+//returns a random clue that hasn't been used yet
 function GetRandomClue(correctCountryData: TCountry, existingClues: TClue[]): TClue {
   const randClueCategory = GetRandomClueCategory(correctCountryData, existingClues);
   const randClueFact = correctCountryData[randClueCategory];
@@ -54,6 +59,7 @@ function GetRandomClue(correctCountryData: TCountry, existingClues: TClue[]): TC
   };
 }
 
+// returns an array of random clues to start with
 function GetInitialClues(correctCountryData: TCountry): TClue[] {
   const newClues: TClue[] = [];
   const numclues = 3;
@@ -71,7 +77,7 @@ function GameInputComponent() {
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
 
-  // initialize country and clues on mount only
+  // initialize country and clues on mount
   useEffect(() => {
     const initialCountry = GetRandomCountry();
     setCorrectCountryData(initialCountry);
