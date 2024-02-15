@@ -130,17 +130,17 @@ function GameInputComponent() {
   }
 
   return (
-    <div className="gameInputComponent">
-      <div className="cluesContainer">
+    <div className="game-input-component">
+      <div className="clues-container">
         {clues.map((clue, i) => (
           <div key={i} className="clue">
-            <div>{CleanForDisplay(clue.category)}:</div>
-            <div>{CleanForDisplay(clue.fact)}</div>
+            <div className="clue-category">{CleanForDisplay(clue.category)}</div>
+            <div className="clue-fact">{CleanForDisplay(clue.fact)}</div>
           </div>
         ))}
       </div>
 
-      <form onSubmit={submitGuessHandler}>
+      <form onSubmit={submitGuessHandler} className="game-input-form">
         <input
           type="text"
           placeholder="Enter country"
@@ -153,7 +153,7 @@ function GameInputComponent() {
       </form>
 
       {userGuesses.length > 0 && (
-        <div className="userGuessesContainer">
+        <div className="guess-container">
           <h3>Guesses:</h3>
           <ul>
             {userGuesses.map((entry, i) => (
