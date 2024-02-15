@@ -24,10 +24,10 @@ function GetRandomClueCategory(
   existingClues: TClue[]
 ): TValidClueCategories {
   const randNumber = Math.floor(Math.random() * 999999);
-  // this does weird -1 and +1 stuff to avoid showing the first key in the object (the answer)
-  const randClueKeyindex = (randNumber % (Object.keys(countryData).length - 1)) + 1;
-  const randClueCategory = Object.keys(countryData)[randClueKeyindex] as TValidClueCategories;
-
+  const allClueCategories = Object.keys(countryData).filter(
+    (clue) => clue !== "official_country_name"
+  ) as TValidClueCategories[];
+  const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
   if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "NA") {
     return GetRandomClueCategory(countryData, existingClues);
   }
