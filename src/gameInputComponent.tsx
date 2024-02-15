@@ -130,7 +130,7 @@ function GameInputComponent() {
   }
 
   return (
-    <div className="game-input-component">
+    <div className="game-input-component" data-testid="game-input-component">
       <div className="clues-container">
         {clues.map((clue, i) => (
           <div key={i} className="clue">

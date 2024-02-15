@@ -3,7 +3,7 @@ import GameInputComponent from "./gameInputComponent.tsx";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <header className="App-header">
         <h1>Intercontinentle</h1>
       </header>
