@@ -79,9 +79,11 @@ li {
 
 .clue {
   background-color: #f0f0f0;
+  text-align: start;
+  width: 100%;
   padding: 8px;
   margin-bottom: 5px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  color: black
+  color: black;
 }

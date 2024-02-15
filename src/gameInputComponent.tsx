@@ -1,15 +1,11 @@
 // GameInputComponent.js
 import React, { useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import {
-  TCountries,
-  TCountry,
-  TValidCountries,
-  TClue,
-  TValidClueCategories,
-} from "./types/Country";
+import { TCountries, TCountry, TValidCountry, TClue, TValidClueCategories } from "./types/Country";
 import { TGuess } from "./types/Guess";
 import CountryJsonData from "./countries.json";
+
+const CountryData: TCountries = CountryJsonData;
 
 function CleanForDisplay(str: string): string {
   return str.replaceAll("_", " ").toUpperCase();
@@ -19,67 +15,77 @@ function CleanForComparison(str: string): string {
   return str.replaceAll("_", " ").toLowerCase().trim();
 }
 
-function ClueAlreadyUsed(clue: string, clues: TClue[]): boolean {
-  const clueSeen = clues.some((existingClue) => existingClue.category === clue);
-  const clueNa = clue === "NA";
-  return clueSeen || clueNa;
+function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean {
+  return existingClues.some((existingClue) => existingClue.category === clueCategory);
 }
 
 function GetRandomClueCategory(
-  correctCountryData: TCountry,
-  clues: TClue[] = []
+  countryData: TCountry,
+  existingClues: TClue[]
 ): TValidClueCategories {
-  const randomNumber = Math.floor(Math.random() * 99999999);
-  // this does weird -1 and +1 stuff to avoid the first key in the object
-  const randomClueKeyindex = (randomNumber % (Object.keys(correctCountryData).length - 1)) + 1;
-  const randomClueCategory = Object.keys(correctCountryData)[
-    randomClueKeyindex
-  ] as TValidClueCategories;
+  const randNumber = Math.floor(Math.random() * 999999);
+  // this does weird -1 and +1 stuff to avoid showing the first key in the object (the answer)
+  const randClueKeyindex = (randNumber % (Object.keys(countryData).length - 1)) + 1;
+  const randClueCategory = Object.keys(countryData)[randClueKeyindex] as TValidClueCategories;
 
-  if (ClueAlreadyUsed(randomClueCategory, clues)) {
-    return GetRandomClueCategory(correctCountryData, clues);
+  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "NA") {
+    return GetRandomClueCategory(countryData, existingClues);
   }
-  return randomClueCategory;
+  return randClueCategory;
 }
 
-function GetRandomCountryName(allCountryNames: TValidCountries[]): TValidCountries {
-  const randomValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
-  return allCountryNames[randomValidIndex];
+function GetRandomCountryName(allCountryNames: TValidCountry[]): TValidCountry {
+  const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
+  return allCountryNames[randValidIndex];
+}
+
+function GetRandomCountry(): TCountry {
+  const allCountryNames = Object.keys(CountryData) as TValidCountry[];
+  const randCountryName = GetRandomCountryName(allCountryNames);
+  return CountryData[randCountryName];
+}
+
+function GetRandomClue(correctCountryData: TCountry, existingClues: TClue[]): TClue {
+  const randClueCategory = GetRandomClueCategory(correctCountryData, existingClues);
+  const randClueFact = correctCountryData[randClueCategory];
+  return {
+    category: randClueCategory,
+    fact: randClueFact,
+  };
+}
+
+function GetInitialClues(correctCountryData: TCountry): TClue[] {
+  const newClues: TClue[] = [];
+  const numclues = 3;
+  for (let i = 0; i < numclues; i++) {
+    newClues.push(GetRandomClue(correctCountryData, newClues));
+  }
+  return newClues;
 }
 
 function GameInputComponent() {
-  // initialize user guess counts and states
+  // declarations
   const maxGuesses = 10;
-
+  const [correctCountryData, setCorrectCountryData] = useState<TCountry>(CountryData.Afghanistan);
+  const [clues, setClues] = useState<TClue[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
-  const [userGuessCount, setGuessCount] = useState(0);
-  const [clues, setClues] = useState<TClue[]>([]);
-  const CountryData: TCountries = CountryJsonData;
-  const allCountryNames = Object.keys(CountryData) as TValidCountries[];
-  const [correctCountryName, setCorrectCountryName] = useState<TValidCountries>(
-    GetRandomCountryName(allCountryNames)
-  );
-  const correctCountryData: TCountry = CountryData[correctCountryName];
 
-  // initialize the first clue on mount
+  // initialize country and clues on mount only
   useEffect(() => {
-    const firstClueCategory = GetRandomClueCategory(correctCountryData);
-    const firstClueFact = correctCountryData[firstClueCategory];
-    setClues([
-      {
-        category: CleanForDisplay(firstClueCategory),
-        fact: CleanForDisplay(firstClueFact),
-      },
-    ]);
-
+    const initialCountry = GetRandomCountry();
+    setCorrectCountryData(initialCountry);
+    setClues(GetInitialClues(correctCountryData));
+    console.log(initialCountry.official_country_name);
     // eslint-disable-next-line
-  }, [userGuessCount]);
+  }, []);
 
-  const handleAddEntry = (e: any) => {
+  function submitGuessHandler(e: any) {
     e.preventDefault();
 
-    const isCorrect = CleanForComparison(inputValue) === CleanForComparison(correctCountryName);
+    const isCorrect =
+      CleanForComparison(inputValue) ===
+      CleanForComparison(correctCountryData.official_country_name);
     const userGuess = { value: inputValue, isCorrect };
 
     // end the game if correct
@@ -93,9 +99,9 @@ function GameInputComponent() {
       }
     }
     // end the game if max guesses reached
-    if (userGuessCount >= maxGuesses) {
+    if (userGuesses.length >= maxGuesses) {
       const playAgain = window.confirm(
-        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryName}. Play again?`
+        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.official_country_name}. Play again?`
       );
       if (playAgain) {
         RestartGame();
@@ -103,50 +109,38 @@ function GameInputComponent() {
       return;
     }
 
-    // add a new clue and increment the guess count
-    const newClueCategory = GetRandomClueCategory(correctCountryData, clues);
-    const newClueFact = CleanForDisplay(correctCountryData[newClueCategory]);
-    setClues([
-      ...clues,
-      {
-        category: CleanForDisplay(newClueCategory),
-        fact: CleanForDisplay(newClueFact),
-      },
-    ]);
-    setGuessCount(userGuessCount + 1);
+    // if play continues, add a new clue and increment the guess count
+    setClues([...clues, GetRandomClue(correctCountryData, clues)]);
     setGuesses([...userGuesses, userGuess]);
     setInputValue("");
-  };
+  }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
-  };
+  }
 
-  const RestartGame = () => {
-    setGuessCount(0);
+  function RestartGame() {
+    const initialCountry = GetRandomCountry();
     setGuesses([]);
     setClues([]);
-    setCorrectCountryName(GetRandomCountryName(allCountryNames));
-    setClues([
-      {
-        category: CleanForDisplay(GetRandomClueCategory(correctCountryData)),
-        fact: CleanForDisplay(correctCountryData[GetRandomClueCategory(correctCountryData)]),
-      },
-    ]);
+    setCorrectCountryData(initialCountry);
+    setClues(GetInitialClues(correctCountryData));
     setInputValue("");
-  };
+    console.log(initialCountry.official_country_name);
+  }
 
   return (
     <div className="gameInputComponent">
       <div className="cluesContainer">
         {clues.map((clue, i) => (
           <div key={i} className="clue">
-            {clue.category}: {clue.fact}
+            <div>{CleanForDisplay(clue.category)}:</div>
+            <div>{CleanForDisplay(clue.fact)}</div>
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleAddEntry}>
+      <form onSubmit={submitGuessHandler}>
         <input
           type="text"
           placeholder="Enter country"
