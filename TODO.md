@@ -4,6 +4,7 @@
 
 - shakes around as box resizes
 - spell check on countries (input validation)
+- [] description
 - improve clue readability
 - clue boxes the same width
 - we don't want an alert

@@ -76,7 +76,6 @@ function GameInputComponent() {
   const showFilteredCountries =
     inputValue && filteredCountryNames.length > 0 && !CountryData[inputValue];
 
-  console.log(filteredCountryNames);
   // initialize country and clues on mount
   useEffect(() => {
     const initialCountry = GetRandomCountry();
