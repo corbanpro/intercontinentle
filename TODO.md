@@ -11,4 +11,4 @@
 
 #### Nautica's feedback
 
-- [ ] She felt like she needed a map, even if it's just a picture
+- [ ] Add a map, even if it's just a picture
