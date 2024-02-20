@@ -7620,7 +7620,7 @@
     "highest_elevation": "3,000 m",
     "mean_elevation": "665 m",
     "coastline_distance": "2,640 km",
-    "landlocked": "TRUE",
+    "landlocked": "FALSE",
     "latitude": "25 00 N",
     "longitude": "45 00 E",
     "population": "35,939,806",

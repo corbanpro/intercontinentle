@@ -1,7 +1,7 @@
 // GameInputComponent.js
 import React, { useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import { TCountries, TCountry, TValidCountry, TClue, TValidClueCategories } from "./types/Country";
+import { TCountries, TCountry, TClue } from "./types/Country";
 import { TGuess } from "./types/Guess";
 import CountryJsonData from "./countries.json";
 
@@ -21,14 +21,11 @@ function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean 
 }
 
 // returns a random clue category that hasn't been used yet
-function GetRandomClueCategory(
-  countryData: TCountry,
-  existingClues: TClue[]
-): TValidClueCategories {
+function GetRandomClueCategory(countryData: TCountry, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
     (clue) => clue !== "official_country_name"
-  ) as TValidClueCategories[];
+  );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
   if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "NA") {
     return GetRandomClueCategory(countryData, existingClues);
@@ -37,14 +34,14 @@ function GetRandomClueCategory(
 }
 
 // returns a random country name
-function GetRandomCountryName(allCountryNames: TValidCountry[]): TValidCountry {
+function GetRandomCountryName(allCountryNames: string[]): string {
   const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
   return allCountryNames[randValidIndex];
 }
 
 // returns a random country
 function GetRandomCountry(): TCountry {
-  const allCountryNames = Object.keys(CountryData) as TValidCountry[];
+  const allCountryNames = Object.keys(CountryData);
   const randCountryName = GetRandomCountryName(allCountryNames);
   return CountryData[randCountryName];
 }
@@ -101,8 +98,8 @@ function GameInputComponent() {
       );
       if (playAgain) {
         RestartGame();
-        return;
       }
+      return;
     }
     // end the game if max guesses reached
     if (userGuesses.length >= maxGuesses) {

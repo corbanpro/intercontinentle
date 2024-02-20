@@ -1,14 +1,11 @@
 import CountriesJson from "../countries.json";
 
-export type TValidCountry = keyof typeof CountriesJson;
-export type TValidClueCategories = keyof typeof CountriesJson.Afghanistan;
-
 export type TCountry = {
-  [key in TValidClueCategories]: string;
+  [key: string]: string;
 };
 
 export type TCountries = {
-  [key in TValidCountry]: TCountry;
+  [key: string]: TCountry;
 };
 
 export type TClue = {
