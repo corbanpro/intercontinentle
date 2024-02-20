@@ -27,23 +27,11 @@ function GetRandomClueCategory(countryData: TCountry, existingClues: TClue[]): s
     (clue) => clue !== "official_country_name"
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
+
   if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "NA") {
     return GetRandomClueCategory(countryData, existingClues);
   }
   return randClueCategory;
-}
-
-// returns a random country name
-function GetRandomCountryName(allCountryNames: string[]): string {
-  const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
-  return allCountryNames[randValidIndex];
-}
-
-// returns a random country
-function GetRandomCountry(): TCountry {
-  const allCountryNames = Object.keys(CountryData);
-  const randCountryName = GetRandomCountryName(allCountryNames);
-  return CountryData[randCountryName];
 }
 
 //returns a random clue that hasn't been used yet
@@ -66,6 +54,14 @@ function GetInitialClues(correctCountryData: TCountry): TClue[] {
   return newClues;
 }
 
+// returns a random country
+function GetRandomCountry(): TCountry {
+  const allCountryNames = Object.keys(CountryData);
+  const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
+  const randCountryName = allCountryNames[randValidIndex];
+  return CountryData[randCountryName];
+}
+
 function GameInputComponent() {
   // declarations
   const maxGuesses = 10;
@@ -73,7 +69,14 @@ function GameInputComponent() {
   const [clues, setClues] = useState<TClue[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
+  const allCountryNames = Object.keys(CountryData);
+  const filteredCountryNames = allCountryNames.filter((country) =>
+    country.toLowerCase().includes(inputValue.toLowerCase())
+  );
+  const showFilteredCountries =
+    inputValue && filteredCountryNames.length > 0 && !CountryData[inputValue];
 
+  console.log(filteredCountryNames);
   // initialize country and clues on mount
   useEffect(() => {
     const initialCountry = GetRandomCountry();
@@ -151,6 +154,23 @@ function GameInputComponent() {
           value={inputValue}
           onChange={handleInputChange}
         />
+        <div className="country-suggestion-container">
+          {showFilteredCountries &&
+            filteredCountryNames.map((country, i) => {
+              if (i > 10) return null;
+              return (
+                <div key={i}>
+                  <button
+                    type="button"
+                    className="country-suggestion"
+                    onClick={() => setInputValue(country)}
+                  >
+                    {country}
+                  </button>
+                </div>
+              );
+            })}
+        </div>
 
         <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
