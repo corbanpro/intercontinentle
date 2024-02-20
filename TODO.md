@@ -2,7 +2,7 @@
 
 #### Sawyer's feedback
 
-- [ ] shakes around as box resizes
+- [ ] as you submit guesses, the clues box grows, and it shakes the screen around in a confusing way
 - [x] spell check on countries (input validation)
 - [ ] improve clue readability
 - [x] clue boxes the same width
