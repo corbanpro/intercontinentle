@@ -10,5 +10,28 @@
 - [x] see old clues
 
 #### Nautica's feedback
-
 - [ ] Add a map, even if it's just a picture
+
+#### Toph's new data ideas
+- country
+  - fact_key (population)
+    - value
+    - comparitive_ranking
+    - category
+    - tooltip
+    - year_updated
+    - only_country_page_enabled
+  - fact_key (area)
+    - value
+    - comparitive_ranking
+    - category
+    - tooltip
+    - year_updated
+    - only_country_page_enabled
+  - fact_key (gdp)
+    - value
+    - comparitive_ranking
+    - category
+    - tooltip
+    - year_updated
+    - only_country_page_enabled
