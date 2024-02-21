@@ -1,12 +1,12 @@
 // GameInputComponent.js
 import React, { useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import { TCountries, TCountry, TClue, emptyCountry } from "./types/Country";
+import { TCountries, TCountry, TClue } from "./types/Country";
 import CountryJsonData from "./countries.json";
 
 const CountryData: TCountries = CountryJsonData;
 
-export type TGuess = {
+type TGuess = {
   value: string;
   isCorrect: boolean;
 };
@@ -69,7 +69,7 @@ function GetRandomCountry(): TCountry {
 function GameInputComponent() {
   // declarations
   const maxGuesses = 10;
-  const [correctCountryData, setCorrectCountryData] = useState<TCountry>(emptyCountry);
+  const [correctCountryData, setCorrectCountryData] = useState<TCountry>({});
   const [clues, setClues] = useState<TClue[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
