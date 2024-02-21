@@ -1,5 +1,3 @@
-import CountriesJson from "../countries.json";
-
 export type TCountry = {
   [key: string]: string;
 };

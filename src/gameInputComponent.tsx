@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from "react";
 import "./GameInputComponent.css";
 import { TCountries, TCountry, TClue, emptyCountry } from "./types/Country";
-import { TGuess } from "./types/Guess";
 import CountryJsonData from "./countries.json";
 
 const CountryData: TCountries = CountryJsonData;
+
+export type TGuess = {
+  value: string;
+  isCorrect: boolean;
+};
 
 function CleanForDisplay(str: string): string {
   return str.replaceAll("_", " ").toUpperCase();
