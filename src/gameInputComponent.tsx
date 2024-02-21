@@ -80,7 +80,7 @@ function GameInputComponent() {
   useEffect(() => {
     const initialCountry = GetRandomCountry();
     setCorrectCountryData(initialCountry);
-    setClues(GetInitialClues(correctCountryData));
+    setClues(GetInitialClues(initialCountry));
     console.log(initialCountry.official_country_name);
     // eslint-disable-next-line
   }, []);
