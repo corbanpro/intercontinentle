@@ -26,6 +26,20 @@ ul {
   padding: 0;
 }
 
+.btn-easy {
+  background-color: #4caf50;
+  color: black;
+}
+
+.btn-hard {
+  background-color: #e57373;
+}
+
+.btn-easy,
+.btn-hard {
+  color: black;
+}
+
 .clue {
   color: #e57373;
   font-size: 1.5rem;

@@ -1,3 +1,7 @@
+import CountriesData from "../countries.json";
+
+export type TValidCountry = keyof typeof CountriesData;
+
 export type TCountry = {
   [key: string]: string;
 };

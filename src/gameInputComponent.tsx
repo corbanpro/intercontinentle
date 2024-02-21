@@ -1,7 +1,7 @@
 // GameInputComponent.js
 import React, { useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import { TCountries, TCountry, TClue } from "./types/Country";
+import { TCountries, TCountry, TClue, TValidCountry } from "./types/Country";
 import CountryJsonData from "./countries.json";
 
 const CountryData: TCountries = CountryJsonData;
@@ -59,8 +59,7 @@ function GetInitialClues(correctCountryData: TCountry): TClue[] {
 }
 
 // returns a random country
-function GetRandomCountry(): TCountry {
-  const allCountryNames = Object.keys(CountryData);
+function GetRandomCountry(allCountryNames: string[]): TCountry {
   const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
   const randCountryName = allCountryNames[randValidIndex];
   return CountryData[randCountryName];
@@ -73,8 +72,17 @@ function GameInputComponent() {
   const [clues, setClues] = useState<TClue[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
-  const allCountryNames = Object.keys(CountryData);
-  const filteredCountryNames = allCountryNames.filter((country) =>
+  const [hardMode, setHardMode] = useState(false);
+  const unfilteredCountryNames = Object.keys(CountryData);
+  const easyModeCountries: TValidCountry[] = [
+    "United States",
+    "Canada",
+    "Mexico",
+    "Brazil",
+    "Argentina",
+  ];
+  const allCountryNames = hardMode ? Object.keys(CountryData) : easyModeCountries;
+  const filteredCountryNames = unfilteredCountryNames.filter((country) =>
     country.toLowerCase().includes(inputValue.toLowerCase())
   );
   const showFilteredCountries =
@@ -82,7 +90,7 @@ function GameInputComponent() {
 
   // initialize country and clues on mount
   useEffect(() => {
-    const initialCountry = GetRandomCountry();
+    const initialCountry = GetRandomCountry(allCountryNames);
     setCorrectCountryData(initialCountry);
     setClues(GetInitialClues(initialCountry));
     console.log(initialCountry.official_country_name);
@@ -129,7 +137,7 @@ function GameInputComponent() {
   }
 
   function RestartGame() {
-    const initialCountry = GetRandomCountry();
+    const initialCountry = GetRandomCountry(allCountryNames);
     setGuesses([]);
     setClues([]);
     setCorrectCountryData(initialCountry);
@@ -140,6 +148,27 @@ function GameInputComponent() {
 
   return (
     <div className="game-input-component" data-testid="game-input-component">
+      {hardMode ? (
+        <button
+          className="btn-hard"
+          onClick={() => {
+            setHardMode(false);
+            RestartGame();
+          }}
+        >
+          Hard Mode
+        </button>
+      ) : (
+        <button
+          className="btn-easy"
+          onClick={() => {
+            setHardMode(true);
+            RestartGame();
+          }}
+        >
+          Easy Mode
+        </button>
+      )}
       <div className="clues-container">
         {clues.map((clue, i) => (
           <div key={i} className="clue">

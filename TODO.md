@@ -1,6 +1,8 @@
 ## TODO
 
-#### Sawyer's feedback
+### Feedback
+
+##### Sawyer
 
 - [ ] as you submit guesses, the clues box grows, and it shakes the screen around in a confusing way
 - [x] spell check on countries (input validation)
@@ -9,10 +11,17 @@
 - [ ] we don't want an alert
 - [x] see old clues
 
-#### Nautica's feedback
+##### Nautica
+
 - [ ] Add a map, even if it's just a picture
 
+##### Styles
+
+- [ ] imperical units
+- [ ]
+
 #### Toph's new data ideas
+
 - country
   - fact_key (population)
     - value
