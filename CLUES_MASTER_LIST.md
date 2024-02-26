@@ -248,7 +248,157 @@ comparitive_rankings:
   - year_updated: most 2023 est., check string
   - only_country_page_enabled: F
 
-#### 
+#### Drinking water source
+  - url: field/drinking-water-source/
+  - value: ("ed: urban: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: people and society
+  - tooltip: This entry provides information about access to improved or unimproved drinking water sources available to segments of the population of a country.
+  - year_updated: grab from total row, ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### Electricity, Consumption
+  - url: field/electricity/
+  - value: ("ption: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: energy
+  - tooltip: This entry consists of total electricity generated annually plus imports and minus exports, expressed in kilowatt-hours. The discrepancy between the amount of electricity generated and/or imported and the amount consumed and/or exported is accounted for as loss in transmission and distribution.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+
+#### Electricity, Access
+  - url: field/electricity-access/
+  - value: ("otal population: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: energy
+  - tooltip: This entry provides information on access to electricity for the entire country.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### Elevation, Highest Point
+  - url: field/elevation/
+  - value: ("hest point: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: geography
+  - tooltip: This entry includes is the highest point of elevation in the country.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+#### Elevation, Lowest Point
+  - url: field/elevation/
+  - value: ("west point: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: geography
+  - tooltip: This entry includes is the lowest point of elevation in the country.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+#### Elevation, Mean
+  - url: field/elevation/
+  - value: ("an elevation: ")[1]
+  - comparitive_ranking: sort and rank
+  - category: geography
+  - tooltip: This entry includes the mean elevation of the entire countries landscape.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+#### Environment - international agreements
+  - url: field/environment-international-agreements/
+  - value: ("rty to: ")[1]
+  - comparitive_ranking: NA
+  - category: environment
+  - tooltip: This entry lists the most important national environmental agreements, international environmental issues, and the international agreements in which the country is involved.
+  - year_updated: NA
+  - only_country_page_enabled: T
+
+#### Ethic Groups
+  - url: field/ethnic-groups/
+  - value: just the string
+  - comparitive_ranking: NA
+  - category: people and society
+  - tooltip: This entry provides an ordered listing of ethnic groups starting with the largest and normally includes the percent of total population.
+  - year_updated: NA
+  - only_country_page_enabled: T
+
+#### Executive branch
+  - url: field/executive-branch/
+  - value: ("f of state: ")[1]
+  - comparitive_ranking: NA
+  - category: government
+  - tooltip: This entry includes the name, title, and beginning date in office of the titular leader of the country who represents the state at official and ceremonial functions but may not be involved with the day-to-day activities of the government.
+  - year_updated: NA
+  - only_country_page_enabled: T
+
+
+#### Exchange rates
+  - url: field/exchange-rates/
+  - value: a list of five strings, delimmited by "<br>"
+  - comparitive_ranking: NA
+  - category: economy
+  - tooltip: This entry provides the average annual price of a country's monetary unit in terms of the US dollar.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+#### Exports
+  - url: field/exports/
+  - value: just the string, first entry in list of three
+  - comparitive_ranking: sort and rank
+  - category: economy
+  - tooltip: This entry provides the total US dollar amount of merchandise exports on an f.o.b. (free on board) basis. These figures are calculated on an exchange rate basis, i.e., not in purchasing power parity (PPP) terms.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### Exports - commodities
+  - url: field/exports-commodities/
+  - value: make an array of strings, randomly select three, delimmited by ", "
+  - comparitive_ranking: NA
+  - category: economy
+  - tooltip: This entry provides a listing of the highest-valued exported products; it sometimes includes the percent of total dollar value.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### Exports - partners
+  - url: field/exports-partners/
+  - value: make an array of strings, select first three, delimmited by ", "
+  - comparitive_ranking: NA
+  - category: economy
+  - tooltip: This entry provides a rank ordering of trading partners starting with the most important; it sometimes includes the percent of total dollar value.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### GDP
+  - url: field/gdp-official-exchange-rate/
+  - value: just the string
+  - comparitive_ranking: sort and rank
+  - category: economy
+  - tooltip: This entry gives the gross domestic product (GDP) or value of all final goods and services produced within a nation in a given year. A nation's GDP at purchasing power parity (PPP) exchange rates is the sum value of all goods and services produced in the country valued at prices prevailing in the United States in the year noted.
+  - year_updated: ("(")[1:5]
+  - only_country_page_enabled: F
+
+#### Geographic Coordinates, Latitude
+  - url: field/geographic-coordinates/
+  - value: (", ")[0]
+  - comparitive_ranking: NA
+  - category: geography
+  - tooltip: This entry includes the latitude and longitude of the country's geographic center in decimal degrees.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+#### Geographic Coordinates, Longitude
+  - url: field/geographic-coordinates/
+  - value: (", ")[1]
+  - comparitive_ranking: NA
+  - category: geography
+  - tooltip: This entry includes the latitude and longitude of the country's geographic center in decimal degrees.
+  - year_updated: NA
+  - only_country_page_enabled: F
+
+####
+
+
+####
+#### EXAMPLE
   - url:
   - value:
   - comparitive_ranking:
