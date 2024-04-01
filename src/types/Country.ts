@@ -1,4 +1,4 @@
-import CountriesData from "../countries.json";
+import CountriesData from "data/countries.json";
 
 export type TValidCountry = keyof typeof CountriesData;
 

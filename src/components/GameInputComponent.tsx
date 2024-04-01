@@ -1,8 +1,10 @@
-// GameInputComponent.js
-import React, { useEffect, useState } from "react";
+/**
+ * cowritten component
+ */
+import React, { useCallback, useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import { TCountries, TCountry, TClue, TValidCountry } from "./types/Country";
-import CountryJsonData from "./countries.json";
+import { TCountries, TCountry, TClue } from "types/Country";
+import CountryJsonData from "data/countries.json";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -68,107 +70,74 @@ function GetRandomCountry(allCountryNames: string[]): TCountry {
 function GameInputComponent() {
   // declarations
   const maxGuesses = 10;
-  const [correctCountryData, setCorrectCountryData] = useState<TCountry>({});
-  const [clues, setClues] = useState<TClue[]>([]);
+  const allCountryNames = Object.keys(CountryData);
+  const initialCountryData = GetRandomCountry(allCountryNames);
+
+  const [correctCountryData, setCorrectCountryData] = useState<TCountry>(initialCountryData);
+  const [clues, setClues] = useState(GetInitialClues(initialCountryData));
   const [inputValue, setInputValue] = useState("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
-  const [hardMode, setHardMode] = useState(false);
-  const unfilteredCountryNames = Object.keys(CountryData);
-  const easyModeCountries: TValidCountry[] = [
-    "United States",
-    "Canada",
-    "Mexico",
-    "Brazil",
-    "Argentina",
-  ];
-  const allCountryNames = hardMode ? Object.keys(CountryData) : easyModeCountries;
-  const filteredCountryNames = unfilteredCountryNames.filter((country) =>
+
+  const RestartGame = useCallback(() => {
+    const newCountryData = GetRandomCountry(allCountryNames);
+    setGuesses([]);
+    setClues([]);
+    setCorrectCountryData(newCountryData);
+    setClues(GetInitialClues(newCountryData));
+    setInputValue("");
+  }, [allCountryNames]);
+
+  const submitGuessHandler = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      const isCorrect =
+        CleanForComparison(inputValue) ===
+        CleanForComparison(correctCountryData.official_country_name);
+      const userGuess = { value: inputValue, isCorrect };
+
+      // end the game if correct
+      if (isCorrect) {
+        const playAgain = window.confirm(
+          "Congratulations! You guessed the correct country! Play again?"
+        );
+        if (playAgain) {
+          RestartGame();
+        }
+        return;
+      }
+      // end the game if max guesses reached
+      if (userGuesses.length >= maxGuesses) {
+        const playAgain = window.confirm(
+          `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.official_country_name}. Play again?`
+        );
+        if (playAgain) {
+          RestartGame();
+        }
+        return;
+      }
+
+      // if play continues, add a new clue and increment the guess count
+      setClues([...clues, GetRandomClue(correctCountryData, clues)]);
+      setGuesses([...userGuesses, userGuess]);
+      setInputValue("");
+    },
+    [correctCountryData, clues, inputValue, userGuesses, RestartGame]
+  );
+
+  const filteredCountryNames = allCountryNames.filter((country) =>
     country.toLowerCase().includes(inputValue.toLowerCase())
   );
   const showFilteredCountries =
     inputValue && filteredCountryNames.length > 0 && !CountryData[inputValue];
 
-  // initialize country and clues on mount
+  // development helper: log the correct country
   useEffect(() => {
-    const initialCountry = GetRandomCountry(allCountryNames);
-    setCorrectCountryData(initialCountry);
-    setClues(GetInitialClues(initialCountry));
-    console.log(initialCountry.official_country_name);
-    // eslint-disable-next-line
-  }, []);
-
-  function submitGuessHandler(e: any) {
-    e.preventDefault();
-
-    const isCorrect =
-      CleanForComparison(inputValue) ===
-      CleanForComparison(correctCountryData.official_country_name);
-    const userGuess = { value: inputValue, isCorrect };
-
-    // end the game if correct
-    if (isCorrect) {
-      const playAgain = window.confirm(
-        "Congratulations! You guessed the correct country! Play again?"
-      );
-      if (playAgain) {
-        RestartGame();
-      }
-      return;
-    }
-    // end the game if max guesses reached
-    if (userGuesses.length >= maxGuesses) {
-      const playAgain = window.confirm(
-        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.official_country_name}. Play again?`
-      );
-      if (playAgain) {
-        RestartGame();
-      }
-      return;
-    }
-
-    // if play continues, add a new clue and increment the guess count
-    setClues([...clues, GetRandomClue(correctCountryData, clues)]);
-    setGuesses([...userGuesses, userGuess]);
-    setInputValue("");
-  }
-
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value);
-  }
-
-  function RestartGame() {
-    const initialCountry = GetRandomCountry(allCountryNames);
-    setGuesses([]);
-    setClues([]);
-    setCorrectCountryData(initialCountry);
-    setClues(GetInitialClues(correctCountryData));
-    setInputValue("");
-    console.log(initialCountry.official_country_name);
-  }
+    console.log(correctCountryData.official_country_name);
+  }, [correctCountryData]);
 
   return (
     <div className="game-input-component" data-testid="game-input-component">
-      {hardMode ? (
-        <button
-          className="btn-hard"
-          onClick={() => {
-            setHardMode(false);
-            RestartGame();
-          }}
-        >
-          Hard Mode
-        </button>
-      ) : (
-        <button
-          className="btn-easy"
-          onClick={() => {
-            setHardMode(true);
-            RestartGame();
-          }}
-        >
-          Easy Mode
-        </button>
-      )}
       <div className="clues-container">
         {clues.map((clue, i) => (
           <div key={i} className="clue">
@@ -184,7 +153,7 @@ function GameInputComponent() {
           placeholder="Enter country"
           className="country-input"
           value={inputValue}
-          onChange={handleInputChange}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <div className="country-suggestion-container">
           {showFilteredCountries &&

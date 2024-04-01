@@ -1,5 +1,9 @@
+/**
+ * cowritten component
+ */
+import React from "react";
 import "./App.css";
-import GameInputComponent from "./gameInputComponent.tsx";
+import GameInputComponent from "./GameInputComponent.tsx";
 
 function App() {
   return (
