@@ -10,6 +10,11 @@ export type TCountries = {
   [key: string]: TCountry;
 };
 
+export type TGuess = {
+  value: string;
+  isCorrect: boolean;
+};
+
 export type TClue = {
   category: string;
   fact: string;
