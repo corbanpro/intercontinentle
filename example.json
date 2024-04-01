@@ -1,0 +1,42 @@
+{
+  "Afghanistan" : {
+    "AdministrativeDivisions" : {
+      "url": "",
+			"value": "",
+			"comparitive_ranking": "",
+			"category": "",
+			"tooltip": "",
+			"year_updated": "",
+			"only_country_page_enabled": ""
+    },
+    "MaleFemalePopulationDistribution" : {
+      "url": "",
+      "value": "",
+      "comparitive_ranking": "",
+      "category": "",
+      "tooltip": "",
+      "year_updated": "",
+      "only_country_page_enabled": ""
+    }
+  },
+  "Albania" : {
+    "AdministrativeDivisions" : {
+      "url": "",
+      "value": "",
+      "comparitive_ranking": "",
+      "category": "",
+      "tooltip": "",
+      "year_updated": "",
+      "only_country_page_enabled": ""
+    },
+    "MaleFemalePopulationDistribution" : {
+      "url": "",
+      "value": "",
+      "comparitive_ranking": "",
+      "category": "",
+      "tooltip": "",
+      "year_updated": "",
+      "only_country_page_enabled": ""
+    }
+  }
+}
