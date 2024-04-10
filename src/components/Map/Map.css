@@ -17,3 +17,7 @@
 .country:hover {
   fill: aqua;
 }
+
+.filter-white {
+  filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(335deg) brightness(105%) contrast(105%);
+}
