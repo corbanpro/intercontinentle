@@ -90,7 +90,7 @@ function GameInputComponent() {
     if (guess) {
       isCorrect = CleanForComparison(guess) === CleanForComparison(correctCountryData.Country);
     }
-    const userGuess = { value: guess, isCorrect };
+    const userGuess = { value: guess ?? "", isCorrect };
 
     // end the game if correct
     if (isCorrect) {
