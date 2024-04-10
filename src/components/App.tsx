@@ -4,6 +4,7 @@
 import React from "react";
 import "components/App.css";
 import GameInputComponent from "components/GameInputComponent";
+const Sweden = require("components/sweden.svg");
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className="game-wrapper">
         <GameInputComponent />
       </div>
+      <img src={Sweden} alt="sweden" />
     </div>
   );
 }
