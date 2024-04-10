@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./GameInputComponent.css";
 import { TClue, TCountries, TCountry, TGuess } from "types/Country";
 import CountryJsonData from "data/countries.json";
+import Map from "./Map/Map";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -164,6 +165,8 @@ function GameInputComponent() {
 
         <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
+
+      <Map />
 
       {userGuesses.length > 0 && (
         <div className="guess-container">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- (c) ammap.com | SVG map of Sweden - Low -->
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
 	<defs>
 		<style type="text/css">
 			.land
@@ -13,10 +13,6 @@
 			}
 		</style>
 
-		<amcharts:ammap projection="mercator" leftLongitude="11.105169" topLatitude="69.061149" rightLongitude="24.170696" bottomLatitude="55.338154"></amcharts:ammap>
-
-		<!-- All areas are listed in the line below. You can use this list in your script. -->		<!--{id:"SE-M"},{id:"SE-O"},{id:"SE-K"},{id:"SE-C"},{id:"SE-AB"},{id:"SE-I"},{id:"SE-AC"},{id:"SE-Y"},{id:"SE-BD"},{id:"SE-Z"},{id:"SE-S"},{id:"SE-N"},{id:"SE-U"},{id:"SE-D"},{id:"SE-E"},{id:"SE-T"},{id:"SE-G"},{id:"SE-W"},{id:"SE-H"},{id:"SE-F"},{id:"SE-X"}-->
-		
 	</defs>
 	<g>
 		<path id="SE-M" title="Skåne" class="land" d="M111.67,1808.39L193.29,1807.51L215.83,1736.23L215.06,1690.07L152.15,1695.95L116.4,1690.41L88.59,1709L125.11,1775.07L111.67,1808.39z"/>
