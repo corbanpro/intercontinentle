@@ -1,0 +1,237 @@
+{
+  "abbreviation": {
+    "Clue": "Abbreviation",
+    "ToolTip": "Abbreviation or code representing the country.",
+    "Category": "Social"
+  },
+  "agriculturallandpct": {
+    "Clue": "AgriculturalLandPct",
+    "ToolTip": "Percentage of land area used for agricultural purposes.",
+    "Category": "Geography"
+  },
+  "armedforcessize": {
+    "Clue": "ArmedForcesSize",
+    "ToolTip": "Size of the armed forces in the country.",
+    "Category": "Military"
+  },
+  "birthrate": {
+    "Clue": "BirthRate",
+    "ToolTip": "Number of births per 1,000 population per year.",
+    "Category": "Demographics"
+  },
+  "callingcode": {
+    "Clue": "CallingCode",
+    "ToolTip": "International calling code for the country.",
+    "Category": "Social"
+  },
+  "capitalcity": {
+    "Clue": "CapitalCity",
+    "ToolTip": "Name of the capital or major city.",
+    "Category": "Geography"
+  },
+  "co2emissions": {
+    "Clue": "Co2Emissions",
+    "ToolTip": "Carbon dioxide emissions in tons.",
+    "Category": "Health"
+  },
+  "coastlinedistance": {
+    "Clue": "CoastlineDistance",
+    "ToolTip": "Total distance of country boundary that touches coastline, in km.",
+    "Category": "Geography"
+  },
+  "cpi": {
+    "Clue": "CPI",
+    "ToolTip": "Consumer Price Index, a measure of inflation and purchasing power.",
+    "Category": "Economics"
+  },
+  "currencycode": {
+    "Clue": "CurrencyCode",
+    "ToolTip": "Currency code used in the country.",
+    "Category": "Economics"
+  },
+  "deathrateperthousand": {
+    "Clue": "DeathRatePerThousand",
+    "ToolTip": "The number of deaths per 1,000 population per year.",
+    "Category": "Health"
+  },
+  "density": {
+    "Clue": "Density",
+    "ToolTip": "Population density measured in persons per square kilometer.",
+    "Category": "Demographics"
+  },
+  "exportpartners": {
+    "Clue": "ExportPartners",
+    "ToolTip": "Top 3 countries or entities with which the country engages in significant export trade.",
+    "Category": "Economics"
+  },
+  "fertilityrate": {
+    "Clue": "FertilityRate",
+    "ToolTip": "Average number of children born to a woman during her lifetime.",
+    "Category": "Demographics"
+  },
+  "forestedareapct": {
+    "Clue": "ForestedAreaPct",
+    "ToolTip": "Percentage of land area covered by forests.",
+    "Category": "Geography"
+  },
+  "gasolineprice": {
+    "Clue": "GasolinePrice",
+    "ToolTip": "Price of gasoline per liter in local currency.",
+    "Category": "Economics"
+  },
+  "gdp": {
+    "Clue": "GDP",
+    "ToolTip": "Gross Domestic Product, the total value of goods and services produced in the country.",
+    "Category": "Economics"
+  },
+  "gdppercapita": {
+    "Clue": "GDPPerCapita",
+    "ToolTip": "Gross Domestic Product (GDP) per capita, which represents the average wealth per person in the country.",
+    "Category": "Economics"
+  },
+  "highestelevation": {
+    "Clue": "HighestElevation",
+    "ToolTip": "The highest point in the country, usually measured in meters above sea level.",
+    "Category": "Geography"
+  },
+  "infantmortality": {
+    "Clue": "InfantMortality",
+    "ToolTip": "Number of deaths per 1,000 live births before reaching one year of age.",
+    "Category": "Health"
+  },
+  "internetcountrycode": {
+    "Clue": "InternetCountryCode",
+    "ToolTip": "The two-letter country code used in internet domain names governed by the country.",
+    "Category": "Social"
+  },
+  "internetuserspct": {
+    "Clue": "InternetUsersPct",
+    "ToolTip": "Percentage of the country's population that uses the internet.",
+    "Category": "Demographics"
+  },
+  "landarea": {
+    "Clue": "LandArea",
+    "ToolTip": "Total land area of the country in square kilometers.",
+    "Category": "Geography"
+  },
+  "landlocked": {
+    "Clue": "Landlocked",
+    "ToolTip": " Indicates whether the country is entirely surrounded by land and has no coastline.",
+    "Category": "Geography"
+  },
+  "largestcity": {
+    "Clue": "LargestCity",
+    "ToolTip": "Name of the country's largest city.",
+    "Category": "Geography"
+  },
+  "latitude": {
+    "Clue": "Latitude",
+    "ToolTip": "Latitude coordinate of the country's location.",
+    "Category": "Geography"
+  },
+  "lifeexpectancy": {
+    "Clue": "LifeExpectancy",
+    "ToolTip": "Average number of years a newborn is expected to live.",
+    "Category": "Health"
+  },
+  "literacypct": {
+    "Clue": "LiteracyPct",
+    "ToolTip": "Percentage of the population aged 15 and over who can read and write.",
+    "Category": "Demographics"
+  },
+  "longitude": {
+    "Clue": "Longitude",
+    "ToolTip": "Longitude coordinate of the country's location.}",
+    "Category": "Geography"
+  },
+  "maternalmortalityratio": {
+    "Clue": "MaternalMortalityRatio",
+    "ToolTip": "Number of maternal deaths per 100,000 live births.",
+    "Category": "Health"
+  },
+  "medianage": {
+    "Clue": "MedianAge",
+    "ToolTip": "The age that divides the population into two numerically equal groups, with half being younger and half older.",
+    "Category": "Demographics"
+  },
+  "minimumwage": {
+    "Clue": "MinimumWage",
+    "ToolTip": "Minimum wage level in local currency.",
+    "Category": "Economics"
+  },
+  "mostpopularreligion": {
+    "Clue": "MostPopularReligion",
+    "ToolTip": "The dominant religion or faith tradition practiced in the country.",
+    "Category": "Social"
+  },
+  "obesity": {
+    "Clue": "Obesity",
+    "ToolTip": "Percentage of the population that is considered obese.",
+    "Category": "Health"
+  },
+  "officiallanguage": {
+    "Clue": "OfficialLanguage",
+    "ToolTip": "Official language(s) spoken in the country.",
+    "Category": "Social"
+  },
+  "outofpockethealthexpenditure": {
+    "Clue": "OutOfPocketHealthExpenditure",
+    "ToolTip": "Percentage of total health expenditure paid out-of-pocket by individuals.",
+    "Category": "Health"
+  },
+  "physiciansperthousand": {
+    "Clue": "PhysiciansPerThousand",
+    "ToolTip": "Number of physicians per thousand people.",
+    "Category": "Health"
+  },
+  "population": {
+    "Clue": "Population",
+    "ToolTip": "Total population of the country.",
+    "Category": "Demographics"
+  },
+  "populationbelowpovertyline": {
+    "Clue": "PopulationBelowPovertyLine",
+    "ToolTip": "Percentage of the population living below the poverty line.",
+    "Category": "Demographics"
+  },
+  "populationlaborforcepct": {
+    "Clue": "PopulationLaborForcePct",
+    "ToolTip": "Percentage of the population that is part of the labor force.",
+    "Category": "Demographics"
+  },
+  "primaryeducationenrollmentratio": {
+    "Clue": "PrimaryEducationEnrollmentRatio",
+    "ToolTip": "Gross enrollment ratio for primary education, per one thousand persons.",
+    "Category": "Health"
+  },
+  "randombordercountry": {
+    "Clue": "RandomBorderCountry",
+    "ToolTip": "A neighboring country that shares a border with the country, selected randomly.",
+    "Category": "Geography"
+  },
+  "taxrevenuepct": {
+    "Clue": "TaxRevenuePct",
+    "ToolTip": "Tax revenue as a percentage of GDP.",
+    "Category": "Economics"
+  },
+  "totalexports": {
+    "Clue": "TotalExports",
+    "ToolTip": "Total value of goods and services exported by the country in a given period.",
+    "Category": "Economics"
+  },
+  "totaltaxrate": {
+    "Clue": "TotalTaxRate",
+    "ToolTip": "Overall tax burden as a percentage of commercial profits.",
+    "Category": "Economics"
+  },
+  "unemploymentrate": {
+    "Clue": "UnemploymentRate",
+    "ToolTip": "Percentage of the labor force that is unemployed.",
+    "Category": "Demographics"
+  },
+  "urbanpopulation": {
+    "Clue": "UrbanPopulation",
+    "ToolTip": "Percentage of the population living in urban areas.",
+    "Category": "Demographics"
+  }
+}

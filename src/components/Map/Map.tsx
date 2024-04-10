@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import MapSvg from "./MapSvg";
+import CountryDataJson from "data/countryData.json";
+import { TCountries } from "types/Country";
 
-export default function Map() {
-  const [selectedCountry, setSelectedCountry] = useState("");
+const CountryData: TCountries = CountryDataJson;
 
+export default function Map({
+  submitGuessHander,
+}: {
+  submitGuessHander: (guess: string, e?: React.FormEvent<HTMLFormElement>) => void;
+}) {
   function CountryClickHandler(countryCode: string) {
-    setSelectedCountry(countryCode);
-  }
-
-  let mapImage;
-  try {
-    mapImage = require(`data/countryOutlines/all/${selectedCountry.toLowerCase()}/vector.svg`);
-  } catch (error) {
-    mapImage = undefined;
+    console.log(CountryData[countryCode.toLowerCase()]?.Country);
+    submitGuessHander(CountryData[countryCode.toLowerCase()]?.Country);
   }
 
   return (
     <>
-      {mapImage && <img className="filter-white" src={mapImage} alt="" height={100} />}
       <MapSvg CountryClickHandler={CountryClickHandler} />
     </>
   );

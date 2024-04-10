@@ -1,0 +1,48 @@
+Clue,ToolTip,Category
+Abbreviation,Abbreviation or code representing the country.,Social
+AgriculturalLandPct,Percentage of land area used for agricultural purposes.,Geography
+ArmedForcesSize,Size of the armed forces in the country.,Military
+BirthRate,"Number of births per 1,000 population per year.",Demographics
+CallingCode,International calling code for the country.,Social
+CapitalCity,Name of the capital or major city.,Geography
+Co2Emissions,Carbon dioxide emissions in tons.,Health
+CoastlineDistance,"Total distance of country boundary that touches coastline, in km.",Geography
+CPI,"Consumer Price Index, a measure of inflation and purchasing power.",Economics
+CurrencyCode,Currency code used in the country.,Economics
+DeathRatePerThousand,"The number of deaths per 1,000 population per year.",Health
+Density,Population density measured in persons per square kilometer.,Demographics
+ExportPartners,Top 3 countries or entities with which the country engages in significant export trade.,Economics
+FertilityRate,Average number of children born to a woman during her lifetime.,Demographics
+ForestedAreaPct,Percentage of land area covered by forests.,Geography
+GasolinePrice,Price of gasoline per liter in local currency.,Economics
+GDP,"Gross Domestic Product, the total value of goods and services produced in the country.",Economics
+GDPPerCapita,"Gross Domestic Product (GDP) per capita, which represents the average wealth per person in the country.",Economics
+HighestElevation,"The highest point in the country, usually measured in meters above sea level.",Geography
+InfantMortality,"Number of deaths per 1,000 live births before reaching one year of age.",Health
+InternetCountryCode,The two-letter country code used in internet domain names governed by the country.,Social
+InternetUsersPct,Percentage of the country's population that uses the internet.,Demographics
+LandArea,Total land area of the country in square kilometers.,Geography
+Landlocked, Indicates whether the country is entirely surrounded by land and has no coastline.,Geography
+LargestCity,Name of the country's largest city.,Geography
+Latitude,Latitude coordinate of the country's location.,Geography
+LifeExpectancy,Average number of years a newborn is expected to live.,Health
+LiteracyPct,Percentage of the population aged 15 and over who can read and write.,Demographics
+Longitude,Longitude coordinate of the country's location.},Geography
+MaternalMortalityRatio,"Number of maternal deaths per 100,000 live births.",Health
+MedianAge,"The age that divides the population into two numerically equal groups, with half being younger and half older.",Demographics
+MinimumWage,Minimum wage level in local currency.,Economics
+MostPopularReligion,The dominant religion or faith tradition practiced in the country.,Social
+Obesity,Percentage of the population that is considered obese.,Health
+OfficialLanguage,Official language(s) spoken in the country.,Social
+OutOfPocketHealthExpenditure,Percentage of total health expenditure paid out-of-pocket by individuals.,Health
+PhysiciansPerThousand,Number of physicians per thousand people.,Health
+Population,Total population of the country.,Demographics
+PopulationBelowPovertyLine,Percentage of the population living below the poverty line.,Demographics
+PopulationLaborForcePct,Percentage of the population that is part of the labor force.,Demographics
+PrimaryEducationEnrollmentRatio,"Gross enrollment ratio for primary education, per one thousand persons.",Health
+RandomBorderCountry,"A neighboring country that shares a border with the country, selected randomly.",Geography
+TaxRevenuePct,Tax revenue as a percentage of GDP.,Economics
+TotalExports,Total value of goods and services exported by the country in a given period.,Economics
+TotalTaxRate,Overall tax burden as a percentage of commercial profits.,Economics
+UnemploymentRate,Percentage of the labor force that is unemployed.,Demographics
+UrbanPopulation,Percentage of the population living in urban areas.,Demographics

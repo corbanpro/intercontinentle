@@ -4,7 +4,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./GameInputComponent.css";
 import { TClue, TCountries, TCountry, TGuess } from "types/Country";
-import CountryJsonData from "data/countries.json";
+import CountryJsonData from "data/countryData.json";
 import Map from "./Map/Map";
 
 const CountryData: TCountries = CountryJsonData;
@@ -26,11 +26,11 @@ function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean 
 function GetRandomClueCategory(countryData: TCountry, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
-    (clue) => clue !== "official_country_name"
+    (clue) => !["Country", "Abbreviation"].includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
-  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "NA") {
+  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "") {
     return GetRandomClueCategory(countryData, existingClues);
   }
   return randClueCategory;
@@ -57,16 +57,16 @@ function GetInitialClues(correctCountryData: TCountry): TClue[] {
 }
 
 /** returns all the data from a random country from the country dataset */
-function GetRandomCountry(allCountryNames: string[]): TCountry {
-  const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryNames.length);
-  const randCountryName = allCountryNames[randValidIndex];
+function GetRandomCountry(allCountryAbbrs: string[]): TCountry {
+  const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryAbbrs.length);
+  const randCountryName = allCountryAbbrs[randValidIndex];
   return CountryData[randCountryName];
 }
 
 function GameInputComponent() {
   const maxGuesses = 10;
-  const allCountryNames = Object.keys(CountryData);
-  const initialCountryData = GetRandomCountry(allCountryNames);
+  const allCountryAbbrs = Object.keys(CountryData);
+  const initialCountryData = GetRandomCountry(allCountryAbbrs);
 
   const [correctCountryData, setCorrectCountryData] = useState<TCountry>(initialCountryData);
   const [clues, setClues] = useState(GetInitialClues(initialCountryData));
@@ -74,21 +74,23 @@ function GameInputComponent() {
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
 
   const RestartGame = useCallback(() => {
-    const newCountryData = GetRandomCountry(allCountryNames);
+    const newCountryData = GetRandomCountry(allCountryAbbrs);
     setGuesses([]);
     setClues([]);
     setCorrectCountryData(newCountryData);
     setClues(GetInitialClues(newCountryData));
     setInputValue("");
-  }, [allCountryNames]);
+  }, [allCountryAbbrs]);
 
-  function submitGuessHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function submitGuessHandler(guess: string | undefined, e?: React.FormEvent<HTMLFormElement>) {
+    if (e) e.preventDefault();
+    console.log("submitting guess: ", guess);
 
-    const isCorrect =
-      CleanForComparison(inputValue) ===
-      CleanForComparison(correctCountryData.official_country_name);
-    const userGuess = { value: inputValue, isCorrect };
+    let isCorrect = false;
+    if (guess) {
+      isCorrect = CleanForComparison(guess) === CleanForComparison(correctCountryData.Country);
+    }
+    const userGuess = { value: guess, isCorrect };
 
     // end the game if correct
     if (isCorrect) {
@@ -103,7 +105,7 @@ function GameInputComponent() {
     // end the game if max guesses reached
     if (userGuesses.length >= maxGuesses) {
       const playAgain = window.confirm(
-        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.official_country_name}. Play again?`
+        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.Country}. Play again?`
       );
       if (playAgain) {
         RestartGame();
@@ -117,13 +119,15 @@ function GameInputComponent() {
     setInputValue("");
   }
 
+  const allCountryNames = Object.values(CountryData).map((country) => country.Country);
+
   const filteredCountryNames = allCountryNames.filter((country) =>
     country.toLowerCase().includes(inputValue.toLowerCase())
   );
   const showFilteredCountries = inputValue !== "";
   // development helper: log the correct country
   useEffect(() => {
-    console.log(correctCountryData.official_country_name);
+    console.log(correctCountryData.Country);
   }, [correctCountryData]);
 
   return (
@@ -137,7 +141,7 @@ function GameInputComponent() {
         ))}
       </div>
 
-      <form onSubmit={submitGuessHandler} className="game-input-form">
+      <form onSubmit={(e) => submitGuessHandler(inputValue, e)} className="game-input-form">
         <input
           type="text"
           placeholder="Enter country"
@@ -166,7 +170,7 @@ function GameInputComponent() {
         <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
 
-      <Map />
+      <Map submitGuessHander={submitGuessHandler} />
 
       {userGuesses.length > 0 && (
         <div className="guess-container">
