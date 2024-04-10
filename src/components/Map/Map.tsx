@@ -1,6 +1,6 @@
 import React from "react";
 import MapSvg from "./MapSvg";
-import CountryDataJson from "data/countryData.json";
+import CountryDataJson from "data/countryData";
 import { TCountries } from "types/Country";
 
 const CountryData: TCountries = CountryDataJson;

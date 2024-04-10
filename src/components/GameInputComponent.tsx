@@ -6,6 +6,7 @@ import "./GameInputComponent.css";
 import { TClue, TCountries, TCountry, TGuess } from "types/Country";
 import CountryJsonData from "data/countryData.json";
 import Map from "./Map/Map";
+import { ToolTips } from "data/tooltips";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -130,12 +131,14 @@ function GameInputComponent() {
     console.log(correctCountryData.Country);
   }, [correctCountryData]);
 
+  console.log(clues);
+
   return (
     <div className="game-input-component" data-testid="game-input-component">
       <div className="clues-container">
         {clues.map((clue, i) => (
           <div key={i} className="clue">
-            <div className="clue-category">{CleanForDisplay(clue.category)}</div>
+            <div className="clue-category">{CleanForDisplay(ToolTips[clue.category].Clue)}</div>
             <div className="clue-fact">{CleanForDisplay(clue.fact)}</div>
           </div>
         ))}
