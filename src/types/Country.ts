@@ -1,4 +1,4 @@
-import CountriesData from "../countries.json";
+import CountriesData from "data/countries.json";
 
 export type TValidCountry = keyof typeof CountriesData;
 
@@ -8,6 +8,11 @@ export type TCountry = {
 
 export type TCountries = {
   [key: string]: TCountry;
+};
+
+export type TGuess = {
+  value: string;
+  isCorrect: boolean;
 };
 
 export type TClue = {

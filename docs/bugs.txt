@@ -1,4 +1,0 @@
-Feb. 12. 2024
-1. clues can be given multiple times
-2. some clue titles and clue contents don't match
-3. remove NA clues
