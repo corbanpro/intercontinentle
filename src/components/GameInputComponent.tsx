@@ -1,9 +1,6 @@
-/**
- * cowritten component
- */
 import React, { useCallback, useEffect, useState } from "react";
 import "./GameInputComponent.css";
-import { TClue, TCountries, TCountry, TGuess } from "types/Country";
+import { TClue, TCountries, TCountryData, TGuess } from "types/Country";
 import CountryJsonData from "data/countryData.json";
 import Map from "./Map/Map";
 import { ToolTips } from "data/tooltips";
@@ -18,37 +15,33 @@ function CleanForComparison(str: string): string {
   return str.replaceAll("_", " ").toLowerCase().trim();
 }
 
-/** returns true if the clue category has already been used */
 function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean {
   return existingClues.some((existingClue) => existingClue.category === clueCategory);
 }
 
-/** returns a random clue category that hasn't been used yet */
-function GetRandomClueCategory(countryData: TCountry, existingClues: TClue[]): string {
+function GetRandomClueCategory(countryData: TCountryData, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
     (clue) => !["Country", "Abbreviation"].includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
-  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory] === "") {
+  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory].value === "") {
     return GetRandomClueCategory(countryData, existingClues);
   }
   return randClueCategory;
 }
 
-/** returns a random clue that hasn't been used yet */
-function GetRandomClue(correctCountryData: TCountry, existingClues: TClue[]): TClue {
+function GetRandomClue(correctCountryData: TCountryData, existingClues: TClue[]): TClue {
   const randClueCategory = GetRandomClueCategory(correctCountryData, existingClues);
   const randClueFact = correctCountryData[randClueCategory];
   return {
     category: randClueCategory,
-    fact: randClueFact,
+    fact: randClueFact.value,
   };
 }
 
-/** returns an array of random clues to start with */
-function GetInitialClues(correctCountryData: TCountry): TClue[] {
+function GetInitialClues(correctCountryData: TCountryData): TClue[] {
   const newClues: TClue[] = [];
   const numclues = 3;
   for (let i = 0; i < numclues; i++) {
@@ -57,8 +50,7 @@ function GetInitialClues(correctCountryData: TCountry): TClue[] {
   return newClues;
 }
 
-/** returns all the data from a random country from the country dataset */
-function GetRandomCountry(allCountryAbbrs: string[]): TCountry {
+function GetRandomCountry(allCountryAbbrs: string[]): TCountryData {
   const randValidIndex = Math.floor((Math.random() * 99999999) % allCountryAbbrs.length);
   const randCountryName = allCountryAbbrs[randValidIndex];
   return CountryData[randCountryName];
@@ -69,9 +61,9 @@ function GameInputComponent() {
   const allCountryAbbrs = Object.keys(CountryData);
   const initialCountryData = GetRandomCountry(allCountryAbbrs);
 
-  const [correctCountryData, setCorrectCountryData] = useState<TCountry>(initialCountryData);
-  const [clues, setClues] = useState(GetInitialClues(initialCountryData));
-  const [inputValue, setInputValue] = useState("");
+  const [correctCountryData, setCorrectCountryData] = useState<TCountryData>(initialCountryData);
+  const [clues, setClues] = useState<TClue[]>(GetInitialClues(initialCountryData));
+  const [inputValue, setInputValue] = useState<string>("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
 
   const RestartGame = useCallback(() => {
@@ -89,11 +81,10 @@ function GameInputComponent() {
 
     let isCorrect = false;
     if (guess) {
-      isCorrect = CleanForComparison(guess) === CleanForComparison(correctCountryData.Country);
+      isCorrect = CleanForComparison(guess) === CleanForComparison(correctCountryData.Country.value);
     }
     const userGuess = { value: guess ?? "", isCorrect };
 
-    // end the game if correct
     if (isCorrect) {
       const playAgain = window.confirm(
         "Congratulations! You guessed the correct country! Play again?"
@@ -103,10 +94,9 @@ function GameInputComponent() {
       }
       return;
     }
-    // end the game if max guesses reached
     if (userGuesses.length >= maxGuesses) {
       const playAgain = window.confirm(
-        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.Country}. Play again?`
+        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.Country.value}. Play again?`
       );
       if (playAgain) {
         RestartGame();
@@ -114,21 +104,20 @@ function GameInputComponent() {
       return;
     }
 
-    // if play continues, add a new clue and increment the guess count
     setClues([...clues, GetRandomClue(correctCountryData, clues)]);
     setGuesses([...userGuesses, userGuess]);
     setInputValue("");
   }
 
-  const allCountryNames = Object.values(CountryData).map((country) => country.Country);
+  const allCountryNames = Object.values(CountryData).map((country) => country.Country.value);
 
   const filteredCountryNames = allCountryNames.filter((country) =>
-    country.toLowerCase().includes(inputValue.toLowerCase())
+    country?.toLowerCase()?.includes(inputValue?.toLowerCase())
   );
   const showFilteredCountries = inputValue !== "";
-  // development helper: log the correct country
+
   useEffect(() => {
-    console.log(correctCountryData.Country);
+    console.log(correctCountryData.Country.value);
   }, [correctCountryData]);
 
   console.log(clues);
@@ -173,7 +162,7 @@ function GameInputComponent() {
         <input className="guess-submit" type="submit" value="make a guess"></input>
       </form>
 
-      <Map submitGuessHander={submitGuessHandler} />
+      <Map submitGuessHandler={submitGuessHandler} />
 
       {userGuesses.length > 0 && (
         <div className="guess-container">
