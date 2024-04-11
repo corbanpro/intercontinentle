@@ -44,3 +44,6 @@
     - tooltip
     - year_updated
     - only_country_page_enabled
+
+#### Toph's new thoughts (04/10)
+  - Add display Value for Clues so there's spaces
