@@ -1,3 +1,22 @@
+/* App.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+
+:root {
+  --background: #F8F9F1;
+  --background-rgb: 248, 249, 241;
+  --accent: #E1F25C;
+  --accent-rgb: 225, 242, 92;
+  --body-text: #133C55;
+  --body-text-rgb: 19, 60, 85;
+  --header-text: #133C55;
+  --header-text-rgb: 19, 60, 85;
+  --placeholder: #8C8C8B;
+  --placeholder-rgb: 140, 140, 139;
+  --photo: #0D0D0D;
+  --photo-rgb: 13, 13, 13;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,16 +24,82 @@
   text-align: center;
 }
 
+.syne-header {
+  font-family: "Syne", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--body-text);
+  font-family: 'Syne', sans-serif;
+}
+
 .App {
-  background-color: #282c34;
-  min-height: 100vh;
-  padding-top: 20vh;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
   display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--body-text);
+  width: 100%;
+  margin: 4rem 0 2rem;
+}
+
+.app-settings {
+  display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.App-header h1 {
+  font-size: 4.5rem;
+  margin: 0.5rem;
+}
+
+.setting-button {
+  position: relative;
+  font-family: "Syne", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.05rem;
+  font-style: normal;
+  margin: 0.25rem;
+  padding: 0.5rem;
+  width: 12rem;
+  border: 3px solid var(--photo);
+  color: var(--photo);
+  background-image: radial-gradient(circle, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--body-text-rgb), 0.5) 100%);
+  transition: background-image 2.3s ease;
+  z-index: 1;
+}
+
+.setting-button::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(var(--body-text-rgb), 0.5) 0%, rgba(var(--accent-rgb), 0.5) 100%);
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+
+.setting-button:hover::before {
+  opacity: 1;
+}
+
+.header-spacer {
+  visibility: hidden;
+  width: 12rem;
+  margin: 0.25rem;
 }

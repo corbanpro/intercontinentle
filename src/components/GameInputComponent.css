@@ -1,22 +1,5 @@
 /* GameInputComponent.css */
 
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #282c34;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
 li {
   margin-bottom: 5px;
 }
@@ -26,112 +9,149 @@ ul {
   padding: 0;
 }
 
-.btn-easy {
-  background-color: #4caf50;
-  color: black;
-}
-
-.btn-hard {
-  background-color: #e57373;
-}
-
-.btn-easy,
-.btn-hard {
-  color: black;
-}
-
 .clue {
-  color: #e57373;
-  font-size: 1.5rem;
-  background-color: white;
-  width: 100%;
-  margin: 0 auto;
+  display: flex;
+  color: var(--body-text);
+  /* Use CSS variable for body text color */
+  font-size: 1.2rem;
+  width: 50%;
   padding: 5px;
   margin-top: 10px;
-  border-radius: 5px;
 }
 
-.clues-container {
+.clue-category {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.clues-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 2vh;
-  color: white;
-  font-size: 2.2rem;
+  font-size: 1.2rem;
   width: 100%;
+  color: var(--body-text);
+  /* Use CSS variable for body text color */
 }
 
-.correct {
-  color: #4caf50;
+.clues-wrapper h3 {
+  color: var(--header-text);
+  text-align: left;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+.game-input-component {
+  width: 85%;
+}
+
+.guess-wrapper {
+  color: var(--body-text);
+  font-size: 1.75rem;
+}
+
+.guess-wrapper h3 {
+  color: var(--header-text);
+  text-align: right;
+}
+
+.form-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 4rem;
+  max-height: 4rem;
+  margin: 2rem 0;
+  overflow-y: visible;
+}
+
+.input-box-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
 }
 
 .country-input {
-  background-color: #282c34;
-  border-bottom: 2px solid #e57373;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  color: #f0f0f0;
-  font-size: 24px;
-  border-radius: 16px;
-  box-shadow: 0px 2px 10px 6px #e5737350;
+  height: 100%;
+  width: 100%;
+  padding: 0.5em;
+  background: transparent;
+  border: 3px solid var(--photo);
+  /* Use CSS variable for photo color */
+}
+
+.country-input::placeholder {
+  color: var(--photo);
+  /* Use CSS variable for photo color */
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  text-align: left;
 }
 
 .country-suggestion {
-  color: #e57373;
+  color: var(--body-text);
+  /* Use CSS variable for body text color */
   width: 100%;
-  font-size: 1.5rem;
-  margin-top: 1vh;
-  background-color: white;
+  font-size: 1rem;
+  background-color: var(--background);
+  /* Use CSS variable for background color */
   margin: 0 auto;
 }
 
 .country-suggestion-container {
   padding: 0;
-  width: 100%;
+  width: 40%;
   list-style-type: none;
+}
+
+.country-submit-button {
   position: absolute;
-}
-
-.game-input-component {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.game-input-form {
-  margin-bottom: 2vh;
-  position: relative;
-}
-
-.game-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-}
-
-.guess-container {
-  color: white;
-  font-size: 1.75rem;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100%;
+  border: 3px solid var(--photo);
+  /* Use CSS variable for photo color */
+  background: transparent;
+  display: grid;
+  place-items: center;
 }
 
 .guess-submit {
-  width: 80%;
-  font-size: 24px;
-  border-radius: 16px;
-  background-image: linear-gradient(45deg, #e57373, #e7cbcb);
-  border-style: none;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
 }
 
-.guess-submit:hover {
-  background-image: linear-gradient(45deg, #e7cbcb, #e57373);
-  box-shadow: 0px 2px 10px 6px #e7cbcb60;
-  font-weight: 500;
+.game-logic-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.incorrect {
-  color: #e57373;
+.map-wrapper {
+  display: none;
+  opacity: 0;
 }
