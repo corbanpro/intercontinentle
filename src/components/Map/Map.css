@@ -1,21 +1,22 @@
 .world-bg {
   fill: transparent;
+  stroke: transparent;
 }
 
 .ocean {
-  fill: #fff;
-  stroke: #b9b9b9;
+  fill: transparent;
+  stroke: transparent;
   stroke-width: 1;
   stroke-miterlimit: 1;
 }
 
 .country {
-  fill: #b9b9b9;
-  stroke: #fff;
+  fill: var(--photo);
+  stroke: var(--background);
 }
 
 .country:hover {
-  fill: aqua;
+  fill: var(--accent);
 }
 
 .filter-white {

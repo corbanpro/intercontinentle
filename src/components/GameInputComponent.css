@@ -29,6 +29,7 @@ ul {
   flex-direction: column;
   align-items: flex-start;
   font-size: 1.2rem;
+  text-align: left;
   width: 100%;
   color: var(--body-text);
   /* Use CSS variable for body text color */
@@ -50,7 +51,8 @@ ul {
 }
 
 .game-input-component {
-  width: 85%;
+  width: 100%;
+  padding: 0 4rem;
 }
 
 .guess-wrapper {
@@ -70,15 +72,17 @@ ul {
   text-align: center;
   align-items: center;
   justify-content: flex-start;
+  flex: 1 1 auto;
+  min-width: 40%;
   width: 100%;
   height: 4rem;
   max-height: 4rem;
-  margin: 2rem 0;
+  margin: 2rem 1rem 2rem 0;
   overflow-y: visible;
 }
 
 .input-box-wrapper {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   display: flex;
@@ -93,26 +97,36 @@ ul {
   height: 100%;
   width: 100%;
   padding: 0.5em;
-  background: transparent;
+  background: var(--background);
   border: 3px solid var(--photo);
-  /* Use CSS variable for photo color */
+  text-align: left;
+  transition: all 0.3s ease;
 }
 
 .country-input::placeholder {
   color: var(--photo);
-  /* Use CSS variable for photo color */
   font-size: 1.2rem;
   padding: 0.5rem;
   text-align: left;
+  transition: color 0.3s ease;
+}
+
+.country-input:focus::placeholder {
+  color: transparent;
+}
+
+.country-input:focus {
+  font-size: 1.2rem;
+  /* blurred box-shadow of linear gradient of var(--accent) and var(--body-text) */
+  -webkit-box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
+  box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
 }
 
 .country-suggestion {
   color: var(--body-text);
-  /* Use CSS variable for body text color */
   width: 100%;
   font-size: 1rem;
   background-color: var(--background);
-  /* Use CSS variable for background color */
   margin: 0 auto;
 }
 
@@ -123,20 +137,44 @@ ul {
 }
 
 .country-submit-button {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
+  flex: 1 1 auto;
   width: 15%;
+  min-width: 10rem;
   height: 100%;
+  margin: 0 0 0 1rem;
   border: 3px solid var(--photo);
-  /* Use CSS variable for photo color */
-  background: transparent;
+  /* Remove background property */
+  /* background: var(--background); */
   display: grid;
   place-items: center;
+  transition: background-image 0.7s ease;
+}
+
+.guess-submit::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  color: var(--photo);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--body-text-rgb), 0.5) 100%);
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+
+.guess-submit:hover::before {
+  opacity: 1;
 }
 
 .guess-submit {
+  position: relative;
   font-size: 1.2rem;
+  color: var(--header-text);
   padding: 0.5rem;
   width: 100%;
   height: 100%;

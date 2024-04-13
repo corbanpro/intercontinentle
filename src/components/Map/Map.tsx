@@ -23,7 +23,7 @@ export default function Map({
 
   return (
     <>
-      <div className="map-wrapper">
+      <div id="map-wrapper" className="map-wrapper">
         <MapSvg CountryClickHandler={CountryClickHandler} />
       </div>
     </>

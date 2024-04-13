@@ -1,21 +1,16 @@
 /**
  * cowritten component
  */
-import React, { useState } from "react";
+import React from "react";
 import "components/App.css";
 import Header from "components/Header";
 import GameInputComponent from "components/GameInputComponent";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
+  const mapExists = document.getElementById("map-wrapper") === null;
   return (
-    <div className={`App ${isDarkMode ? "dark-mode" : ""}`} data-testid="app">
-      <Header toggleDarkMode={toggleDarkMode}/>
+    <div className={`App ${mapExists ? "text-input-mode" : "map-input-mode"}`} data-testid="app">
+      <Header />
       <div className="game-container">
         <GameInputComponent />
       </div>
