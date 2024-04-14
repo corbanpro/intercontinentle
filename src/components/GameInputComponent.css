@@ -12,7 +12,6 @@ ul {
 .clue {
   display: flex;
   color: var(--body-text);
-  /* Use CSS variable for body text color */
   font-size: 1.2rem;
   width: 50%;
   padding: 5px;
@@ -32,7 +31,6 @@ ul {
   text-align: left;
   width: 100%;
   color: var(--body-text);
-  /* Use CSS variable for body text color */
 }
 
 .clues-wrapper h3 {
@@ -117,7 +115,6 @@ ul {
 
 .country-input:focus {
   font-size: 1.2rem;
-  /* blurred box-shadow of linear gradient of var(--accent) and var(--body-text) */
   -webkit-box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
   box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
 }
@@ -146,8 +143,6 @@ ul {
   height: 100%;
   margin: 0 0 0 1rem;
   border: 3px solid var(--photo);
-  /* Remove background property */
-  /* background: var(--background); */
   display: grid;
   place-items: center;
   transition: background-image 0.7s ease;
