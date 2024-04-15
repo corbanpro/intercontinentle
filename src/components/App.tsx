@@ -1,18 +1,18 @@
 /**
  * cowritten component
  */
-import React from "react";
+import React, { useState } from "react";
 import "components/App.css";
 import Header from "components/Header";
 import GameInputComponent from "components/GameInputComponent";
 
 function App() {
-  const mapExists = document.getElementById("map-wrapper") === null;
+  const [showMap, setShowMap] = useState(true);
   return (
-    <div className={`App ${mapExists ? "text-input-mode" : "map-input-mode"}`} data-testid="app">
-      <Header />
+    <div data-testid="app">
+      <Header showMap={showMap} setShowMap={setShowMap} />
       <div className="game-container">
-        <GameInputComponent />
+        <GameInputComponent showMap={showMap} />
       </div>
     </div>
   );

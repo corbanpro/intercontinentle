@@ -2,7 +2,7 @@
 
 ### Bugs
 
-- map doesn't show up on page load
+- fix css so the page is actually 100% width
 
 ### Feedback
 

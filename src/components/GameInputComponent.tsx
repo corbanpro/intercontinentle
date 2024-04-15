@@ -61,7 +61,7 @@ function GetRandomCountry(allCountryAbbrs: string[]): TCountryData {
   return CountryData[randCountryName];
 }
 
-function GameInputComponent() {
+function GameInputComponent({ showMap }: { showMap: boolean }) {
   const maxGuesses = 10;
   const allCountryAbbrs = Object.keys(CountryData);
   const initialCountryData = GetRandomCountry(allCountryAbbrs);
@@ -194,7 +194,7 @@ function GameInputComponent() {
           </div>
         </div>
 
-        <Map submitGuessHandler={submitGuessHandler} />
+        {showMap && <Map submitGuessHandler={submitGuessHandler} />}
       </div>
       <CountryModal correctCountryData={correctCountryData} />
     </div>

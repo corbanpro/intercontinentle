@@ -20,7 +20,7 @@ ul {
 
 .clue-category {
   font-weight: bold;
-  margin-right: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .clues-wrapper {
@@ -43,9 +43,8 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   font-size: 1.2rem;
-  text-align: right;
 }
 
 .game-input-component {
@@ -115,8 +114,12 @@ ul {
 
 .country-input:focus {
   font-size: 1.2rem;
-  -webkit-box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
-  box-shadow: -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5), 6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
+  -webkit-box-shadow:
+    -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5),
+    6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
+  box-shadow:
+    -6px -6px 8px 0px rgba(var(--body-text-rgb), 0.5),
+    6px 6px 8px 0px rgba(var(--accent-rgb), 0.5);
 }
 
 .country-suggestion {
@@ -150,14 +153,18 @@ ul {
 
 .guess-submit::before {
   position: absolute;
-  content: '';
+  content: "";
   top: 0;
   color: var(--photo);
   right: 0;
   bottom: 0;
   left: 0;
   z-index: -1;
-  background-image: radial-gradient(circle, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--body-text-rgb), 0.5) 100%);
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--accent-rgb), 0.5) 0%,
+    rgba(var(--body-text-rgb), 0.5) 100%
+  );
   transition: opacity 0.5s ease;
   opacity: 0;
 }
@@ -182,9 +189,4 @@ ul {
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-}
-
-.map-wrapper {
-  display: none;
-  opacity: 0;
 }

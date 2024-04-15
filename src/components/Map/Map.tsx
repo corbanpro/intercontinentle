@@ -16,8 +16,8 @@ export default function Map({ submitGuessHandler }: TMapProps) {
 
   return (
     <>
-      <div id="map-wrapper" className="map-wrapper">
-        <MapSvg CountryClickHandler={CountryClickHandler} />
+      <div style={{}}>
+        <MapSvg width={650} CountryClickHandler={CountryClickHandler} />
       </div>
     </>
   );
