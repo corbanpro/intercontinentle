@@ -1,9 +1,11 @@
+/* GameInputComponent.tsx */
 import React, { useCallback, useEffect, useState } from "react";
 import "./GameInputComponent.css";
 import { TClue, TCountries, TCountryData, TGuess } from "types/Country";
 import CountryJsonData from "data/countryData.json";
 import Map from "./Map/Map";
 import { ToolTips } from "data/tooltips";
+import CountryModal from "./CountryModal/CountryModal";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -86,12 +88,17 @@ function GameInputComponent() {
     const userGuess = { value: guess ?? "", isCorrect };
 
     if (isCorrect) {
-      const playAgain = window.confirm(
-        "Congratulations! You guessed the correct country! Play again?"
-      );
-      if (playAgain) {
-        RestartGame();
-      }
+      const modalContainer = document.getElementById("modal-container");
+      modalContainer?.classList.add("show-modal");
+      modalContainer?.style.setProperty("display", "flex");
+
+      // TODO: implement modal close button, play again button
+      // const playAgain = window.confirm(
+      //   "Congratulations! You guessed the correct country! Play again?"
+      // );
+      // if (playAgain) {
+      //   RestartGame();
+      // }
       return;
     }
     if (userGuesses.length >= maxGuesses) {
@@ -123,69 +130,72 @@ function GameInputComponent() {
   console.log(clues);
 
   return (
-    <div className="game-input-component" data-testid="game-input-component">
-      <form onSubmit={(e) => submitGuessHandler(inputValue, e)} >
-        <div className="form-container">
-          <div className="input-box-wrapper">
-            <input
-              type="text"
-              placeholder="Enter country"
-              className="country-input"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <div className="country-suggestion-container">
-              {showFilteredCountries &&
-                filteredCountryNames.map((country, i) => {
-                  if (i > 10) return null;
-                  return (
-                    <div key={i}>
-                      <button
-                        type="button"
-                        className="country-suggestion"
-                        onClick={() => setInputValue(country)}
-                      >
-                        {country}
-                      </button>
-                    </div>
-                  );
-                })}
+    <div>
+      <div className="game-input-component" data-testid="game-input-component">
+        <form onSubmit={(e) => submitGuessHandler(inputValue, e)} >
+          <div className="form-container">
+            <div className="input-box-wrapper">
+              <input
+                type="text"
+                placeholder="Enter country"
+                className="country-input"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <div className="country-suggestion-container">
+                {showFilteredCountries &&
+                  filteredCountryNames.map((country, i) => {
+                    if (i > 10) return null;
+                    return (
+                      <div key={i}>
+                        <button
+                          type="button"
+                          className="country-suggestion"
+                          onClick={() => setInputValue(country)}
+                        >
+                          {country}
+                        </button>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>  
+            <div className="country-submit-button">
+              <input className="guess-submit" type="submit" value="make a guess"></input>
             </div>
-          </div>  
-          <div className="country-submit-button">
-            <input className="guess-submit" type="submit" value="make a guess"></input>
           </div>
-        </div>
-      </form>
+        </form>
 
-      <div className="game-logic-container">
-        <div className="clues-wrapper">
-          <h3>Clues:</h3>
-          {clues.map((clue, i) => (
-            <div key={i} className="clue">
-              <div className="clue-category">{CleanForDisplay(ToolTips[clue.category].Clue)}</div>
-              <div className="clue-fact">{CleanForDisplay(clue.fact)}</div>
+        <div className="game-logic-container">
+          <div className="clues-wrapper">
+            <h3>Clues:</h3>
+            {clues.map((clue, i) => (
+              <div key={i} className="clue">
+                <div className="clue-category">{CleanForDisplay(ToolTips[clue.category].Clue)}</div>
+                <div className="clue-fact">{CleanForDisplay(clue.fact)}</div>
+              </div>
+            ))}
+          </div>
+        <div className="guesses-wrapper">
+          {userGuesses.length > 0 && (
+            <div className="guess-wrapper">
+              <h3>Guesses:</h3>
+              <ul>
+                {userGuesses.map((entry, i) => (
+                  <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
+                    {entry.value}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+          )}
         </div>
-      <div className="guesses-wrapper">
-        {userGuesses.length > 0 && (
-          <div className="guess-wrapper">
-            <h3>Guesses:</h3>
-            <ul>
-              {userGuesses.map((entry, i) => (
-                <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
-                  {entry.value}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-      </div>
+        </div>
 
-      <Map submitGuessHandler={submitGuessHandler} />
+        <Map submitGuessHandler={submitGuessHandler} />
 
+      </div>
+      <CountryModal correctCountryData={correctCountryData} />
     </div>
   );
 }

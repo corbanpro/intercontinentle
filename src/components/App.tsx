@@ -5,7 +5,6 @@ import React from "react";
 import "components/App.css";
 import Header from "components/Header";
 import GameInputComponent from "components/GameInputComponent";
-import CountryModal from "components/CountryModal";
 
 function App() {
   const mapExists = document.getElementById("map-wrapper") === null;
@@ -15,7 +14,6 @@ function App() {
       <div className="game-container">
         <GameInputComponent />
       </div>
-      <CountryModal />
     </div>
   );
 }
