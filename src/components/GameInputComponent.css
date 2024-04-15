@@ -13,14 +13,15 @@ ul {
   display: flex;
   color: var(--body-text);
   font-size: 1.2rem;
-  width: 50%;
   padding: 5px;
   margin-top: 10px;
+  text-align: left;
 }
 
 .clue-category {
   font-weight: bold;
   padding-right: 0.5rem;
+  text-align: left;
 }
 
 .clues-wrapper {
@@ -53,8 +54,14 @@ ul {
 .guess-wrapper {
   color: var(--body-text);
   font-size: 1.75rem;
+  text-align: right;
 }
 
+.guess-wrapper ul li {
+  text-align: right;
+  line-height: 1;
+  margin-bottom: 10px;
+}
 .guess-wrapper h3 {
   color: var(--header-text);
   text-align: right;
@@ -74,18 +81,6 @@ ul {
   max-height: 4rem;
   margin: 2rem 1rem 2rem 0;
   overflow-y: visible;
-}
-
-.input-box-wrapper {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: space-between;
-  justify-content: center;
-  width: 80%;
-  height: 100%;
 }
 
 .country-input {
@@ -126,11 +121,21 @@ ul {
   font-size: 1rem;
   background-color: var(--background);
   margin: 0 auto;
+  text-align: left;
+  padding: 10px 5px;
+}
+
+.input-box-wrapper {
+  position: relative;
+  width: 80%;
+  height: 100%;
 }
 
 .country-suggestion-container {
+  position: absolute;
+  z-index: 2;
   padding: 0;
-  width: 40%;
+  width: 100%;
   list-style-type: none;
 }
 

@@ -14,13 +14,14 @@ export default function Map({ submitGuessHandler }: TMapProps) {
     submitGuessHandler(CountryData[countryCode.toLowerCase()]?.Country.value);
   }
 
+  const width = window.innerWidth / 2;
+  const mapAspectRatio = 0.5;
+
   return (
-    <>
-      <div className="map-container">
-        <div className="map">
-          <MapSvg width={650} CountryClickHandler={CountryClickHandler} />
-        </div>
+    <div className="map-container" style={{ minHeight: width * mapAspectRatio }}>
+      <div className="map">
+        <MapSvg width={width} CountryClickHandler={CountryClickHandler} />
       </div>
-    </>
+    </div>
   );
 }

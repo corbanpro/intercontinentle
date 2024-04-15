@@ -1,27 +1,28 @@
 /* CountryModal.tsx */
-import React from 'react';
-import './CountryModal.css';
-import { TCountryData } from 'types/Country';
+import React from "react";
+import "./CountryModal.css";
+import { TCountryData } from "types/Country";
 
 interface Props {
   correctCountryData: TCountryData;
 }
-
 
 function selectRandomElements(array: string[], count: number): string[] {
   return array.sort(() => Math.random() - 0.5).slice(0, count);
 }
 
 function CountryModal({ correctCountryData }: Props) {
-  const eligibleFacts = Object.keys(correctCountryData).filter((fact) => !["Country", "Abbreviation", "Paragraph"].includes(fact));
+  const eligibleFacts = Object.keys(correctCountryData).filter(
+    (fact) => !["Country", "Abbreviation", "Paragraph"].includes(fact)
+  );
 
   function createFacts() {
     let facts = [];
     // select 6 random facts from eligibleFacts
     facts = selectRandomElements(eligibleFacts, 6);
     let counter = 1;
-    const modalFacts = document.querySelector('.modal-facts');
-    
+    const modalFacts = document.querySelector(".modal-facts");
+
     for (const fact of facts) {
       const factElement = document.querySelector(`.modal-fact-${counter}`);
       if (factElement) {
@@ -35,16 +36,22 @@ function CountryModal({ correctCountryData }: Props) {
 
   createFacts();
 
+  const abbr = correctCountryData.Abbreviation.value.toLowerCase();
+  const flag = require(`../../data/countryFlags/png250px/${abbr}.png`);
+  const outline = require(`../../data/countryOutlines/all/${abbr}/512.png`);
+
   return (
     <>
       <div id="modal-container" className="modal-container">
         <div className="modal-grid">
           <div className="modal-header">
             <div className="country-flag">
-              <img src={`../../data/countryFlags/png250px/${correctCountryData.Abbreviation.value.toLowerCase()}.png`} alt={correctCountryData.Abbreviation.value} />
+              <img src={flag} alt={correctCountryData.Abbreviation.value} />
             </div>
             <div className="country-title-pop">
-              <h2>{correctCountryData.Country.value} ({correctCountryData.Abbreviation.value})</h2>
+              <h2>
+                {correctCountryData.Country.value} ({correctCountryData.Abbreviation.value})
+              </h2>
               <p>population: {correctCountryData.Population.value}</p>
             </div>
             <div className="country-baseline-facts">
@@ -53,9 +60,7 @@ function CountryModal({ correctCountryData }: Props) {
               <p>GDP: {correctCountryData?.GDP.value}</p>
             </div>
           </div>
-          <div className="modal-paragraph">
-            {correctCountryData.Paragraph.value}
-          </div>
+          <div className="modal-paragraph">{correctCountryData.Paragraph.value}</div>
           <div className="modal-facts">
             <div className="modal-fact-1"></div>
             <div className="modal-fact-2"></div>
@@ -68,8 +73,7 @@ function CountryModal({ correctCountryData }: Props) {
             </div>
           </div>
           <div className="modal-map">
-            {/* /data/countryOutlines/all/{correctCountryData}/512.png */}
-            <img src="" alt="map" />
+            <img src={outline} alt="map" style={{ objectFit: "contain" }} />
             <div className="modal-lat-long">
               <p>atitude: {correctCountryData.Latitude.value}</p>
               <p>longitude: {correctCountryData.Longitude.value}</p>
@@ -79,7 +83,7 @@ function CountryModal({ correctCountryData }: Props) {
         <div className="modal-buttons">buttons</div>
       </div>
     </>
-  )
+  );
 }
 
 export default CountryModal;

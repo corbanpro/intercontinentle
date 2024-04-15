@@ -1,8 +1,12 @@
-## TODO
-
 ### Bugs
 
-- fix css so the page is actually 100% width
+- Success Modal spacing
+
+### TODO
+
+- Success Modal buttons (start over, end)
+- View all countries button
+- Animate clue generation?
 
 ### Feedback
 

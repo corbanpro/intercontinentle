@@ -9,10 +9,6 @@ import CountryModal from "./CountryModal/CountryModal";
 
 const CountryData: TCountries = CountryJsonData;
 
-function CleanForDisplay(str: string): string {
-  return str.replaceAll("_", " ").toUpperCase();
-}
-
 function CleanForComparison(str: string): string {
   return str.replaceAll("_", " ").toLowerCase().trim();
 }
@@ -24,7 +20,7 @@ function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean 
 function GetRandomClueCategory(countryData: TCountryData, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
-    (clue) => !["Country", "Abbreviation", "Paragraph"].includes(clue)
+    (clue) => !["Country", "Abbreviation", "Paragraph", "Landlocked"].includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
@@ -134,67 +130,66 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
   return (
     <>
       <div className="game-input-component" data-testid="game-input-component">
-        <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
-          <div className="form-container">
-            <div className="input-box-wrapper">
-              <input
-                type="text"
-                placeholder="Enter country"
-                className="country-input"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <div className="country-suggestion-container">
-                {showFilteredCountries &&
-                  filteredCountryNames.map((country, i) => {
-                    if (i > 10) return null;
-                    return (
-                      <div key={i}>
+        {showMap ? (
+          <Map submitGuessHandler={submitGuessHandler} />
+        ) : (
+          <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
+            <div className="form-container">
+              <div className="input-box-wrapper">
+                <input
+                  type="text"
+                  placeholder="Enter country"
+                  className="country-input"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                />
+                <div className="country-suggestion-container">
+                  {showFilteredCountries &&
+                    filteredCountryNames.map((country, i) => {
+                      if (i > 10) return null;
+                      return (
                         <button
+                          key={i}
                           type="button"
                           className="country-suggestion"
                           onClick={() => setInputValue(country)}
                         >
                           {country}
                         </button>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
+              </div>
+              <div className="country-submit-button">
+                <input className="guess-submit" type="submit" value="make a guess"></input>
               </div>
             </div>
-            <div className="country-submit-button">
-              <input className="guess-submit" type="submit" value="make a guess"></input>
-            </div>
-          </div>
-        </form>
+          </form>
+        )}
 
         <div className="game-logic-container">
           <div className="clues-wrapper">
             <h3>Clues:</h3>
             {clues.map((clue, i) => (
               <div key={i} className="clue">
-                <div className="clue-category">{CleanForDisplay(ToolTips[clue.category].Clue)}</div>
-                <div className="clue-fact">{CleanForDisplay(clue.fact)}</div>
+                <div className="clue-category">{ToolTips[clue.category].Clue}</div>
+                <div className="clue-fact">{clue.fact}</div>
               </div>
             ))}
           </div>
           <div className="guesses-wrapper">
-            {userGuesses.length > 0 && (
-              <div className="guess-wrapper">
-                <h3>Guesses:</h3>
-                <ul>
-                  {userGuesses.map((entry, i) => (
-                    <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
-                      {entry.value}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="guess-wrapper">
+              <h3>Guesses:</h3>
+              <ul>
+                {userGuesses.map((entry, i) => (
+                  <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
+                    {entry.value}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-
-        {showMap && <Map submitGuessHandler={submitGuessHandler} />}
       </div>
       <CountryModal correctCountryData={correctCountryData} />
     </>

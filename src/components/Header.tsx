@@ -5,15 +5,21 @@ import setColorScheme from "utils/setColorScheme";
 type THeaderProps = {
   showMap: boolean;
   setShowMap: (showMap: boolean) => void;
+  setShowCountryList: (showCountryList: boolean) => void;
+  showCountryList: boolean;
 };
 
-function Header({ showMap, setShowMap }: THeaderProps) {
+function Header({ showMap, setShowMap, setShowCountryList, showCountryList }: THeaderProps) {
   function handleDarkModeClick() {
     setColorScheme();
   }
 
   function handleMapInputMode() {
     setShowMap(!showMap);
+  }
+
+  function handleShowCountryList() {
+    setShowCountryList(!showCountryList);
   }
   return (
     <>
@@ -22,8 +28,11 @@ function Header({ showMap, setShowMap }: THeaderProps) {
           <button id="color-setting" onClick={handleDarkModeClick} className="setting-button">
             Dark Mode
           </button>
-          <button id="input-setting" onClick={handleMapInputMode} className="setting-button">
+          <button onClick={handleMapInputMode} className="setting-button">
             Map Input Mode
+          </button>
+          <button onClick={handleShowCountryList} className="setting-button">
+            Show Country List
           </button>
         </div>
         <h1>intercontinentle</h1>
