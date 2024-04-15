@@ -1,4 +1,3 @@
-
 .world-bg {
   fill: transparent;
   stroke: transparent;
@@ -22,4 +21,17 @@
 
 .filter-white {
   filter: invert(100%) sepia(95%) saturate(21%) hue-rotate(335deg) brightness(105%) contrast(105%);
+}
+
+.map {
+  width: 100%;
+  height: 1;
+  overflow: visible;
+  position: absolute;
+}
+
+.map-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
 }

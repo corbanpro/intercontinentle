@@ -1,23 +1,25 @@
 /* App.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap");
 
 :root {
-  --background: #F8F9F1;
+  --background: #f8f9f1;
   --background-rgb: 248, 249, 241;
-  --accent: #E1F25C;
+  --accent: #e1f25c;
   --accent-rgb: 225, 242, 92;
-  --body-text: #133C55;
+  --body-text: #133c55;
   --body-text-rgb: 19, 60, 85;
-  --header-text: #133C55;
+  --header-text: #133c55;
   --header-text-rgb: 19, 60, 85;
-  --placeholder: #8C8C8B;
+  --placeholder: #8c8c8b;
   --placeholder-rgb: 140, 140, 139;
-  --photo: #0D0D0D;
+  --photo: #0d0d0d;
   --photo-rgb: 13, 13, 13;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -37,15 +39,14 @@ html {
 body {
   background-color: var(--background);
   color: var(--body-text);
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   width: 100%;
 }
 
 .App {
-  background-color: var(--background);
-  display: flex;
-  flex-direction: column;
   width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .App-header {
@@ -81,20 +82,28 @@ body {
   width: 12rem;
   border: 3px solid var(--photo);
   color: var(--photo);
-  background-image: radial-gradient(circle, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--body-text-rgb), 0.5) 100%);
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--accent-rgb), 0.5) 0%,
+    rgba(var(--body-text-rgb), 0.5) 100%
+  );
   transition: background-image 0.7s ease;
   z-index: 1;
 }
 
 .setting-button::before {
   position: absolute;
-  content: '';
+  content: "";
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: -1;
-  background-image: radial-gradient(circle, rgba(var(--body-text-rgb), 0.5) 0%, rgba(var(--accent-rgb), 0.5) 100%);
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--body-text-rgb), 0.5) 0%,
+    rgba(var(--accent-rgb), 0.5) 100%
+  );
   transition: opacity 0.5s ease;
   opacity: 0;
 }

@@ -9,7 +9,7 @@ import GameInputComponent from "components/GameInputComponent";
 function App() {
   const [showMap, setShowMap] = useState(true);
   return (
-    <div data-testid="app">
+    <div className="App">
       <Header showMap={showMap} setShowMap={setShowMap} />
       <div className="game-container">
         <GameInputComponent showMap={showMap} />

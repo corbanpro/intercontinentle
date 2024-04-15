@@ -132,7 +132,7 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
   }, [correctCountryData]);
 
   return (
-    <div>
+    <>
       <div className="game-input-component" data-testid="game-input-component">
         <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
           <div className="form-container">
@@ -197,7 +197,7 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
         {showMap && <Map submitGuessHandler={submitGuessHandler} />}
       </div>
       <CountryModal correctCountryData={correctCountryData} />
-    </div>
+    </>
   );
 }
 
