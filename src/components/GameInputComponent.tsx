@@ -24,11 +24,14 @@ function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean 
 function GetRandomClueCategory(countryData: TCountryData, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
-    (clue) => !["Country", "Abbreviation"].includes(clue)
+    (clue) => !["Country", "Abbreviation", "Paragraph"].includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
-  if (ClueAlreadyUsed(randClueCategory, existingClues) || countryData[randClueCategory].value === "") {
+  if (
+    ClueAlreadyUsed(randClueCategory, existingClues) ||
+    countryData[randClueCategory].value === ""
+  ) {
     return GetRandomClueCategory(countryData, existingClues);
   }
   return randClueCategory;
@@ -83,7 +86,8 @@ function GameInputComponent() {
 
     let isCorrect = false;
     if (guess) {
-      isCorrect = CleanForComparison(guess) === CleanForComparison(correctCountryData.Country.value);
+      isCorrect =
+        CleanForComparison(guess) === CleanForComparison(correctCountryData.Country.value);
     }
     const userGuess = { value: guess ?? "", isCorrect };
 
@@ -127,12 +131,10 @@ function GameInputComponent() {
     console.log(correctCountryData.Country.value);
   }, [correctCountryData]);
 
-  console.log(clues);
-
   return (
     <div>
       <div className="game-input-component" data-testid="game-input-component">
-        <form onSubmit={(e) => submitGuessHandler(inputValue, e)} >
+        <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
           <div className="form-container">
             <div className="input-box-wrapper">
               <input
@@ -159,7 +161,7 @@ function GameInputComponent() {
                     );
                   })}
               </div>
-            </div>  
+            </div>
             <div className="country-submit-button">
               <input className="guess-submit" type="submit" value="make a guess"></input>
             </div>
@@ -176,24 +178,23 @@ function GameInputComponent() {
               </div>
             ))}
           </div>
-        <div className="guesses-wrapper">
-          {userGuesses.length > 0 && (
-            <div className="guess-wrapper">
-              <h3>Guesses:</h3>
-              <ul>
-                {userGuesses.map((entry, i) => (
-                  <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
-                    {entry.value}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+          <div className="guesses-wrapper">
+            {userGuesses.length > 0 && (
+              <div className="guess-wrapper">
+                <h3>Guesses:</h3>
+                <ul>
+                  {userGuesses.map((entry, i) => (
+                    <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
+                      {entry.value}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
 
         <Map submitGuessHandler={submitGuessHandler} />
-
       </div>
       <CountryModal correctCountryData={correctCountryData} />
     </div>
