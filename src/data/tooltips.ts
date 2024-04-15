@@ -6,7 +6,6 @@ type TToolTips = {
   };
 };
 
-//TODO - Add more tooltips for the "Ranking" clues
 export const ToolTips: TToolTips = {
   Abbreviation: {
     Clue: "Abbreviation",
