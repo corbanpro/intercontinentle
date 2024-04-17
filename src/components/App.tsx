@@ -19,9 +19,7 @@ function App() {
         setShowCountryList={setShowCountryList}
         showCountryList={showCountryList}
       />
-      <div className="game-container">
-        <GameInputComponent showMap={showMap} />
-      </div>
+      <GameInputComponent showMap={showMap} />
     </div>
   );
 }
