@@ -1,12 +1,12 @@
 ### Bugs
 
-- Success Modal spacing
+- button text on dark mode
+- gradient buttons
 
 ### TODO
 
-- Success Modal buttons (start over, end)
+- Success Modal finish
 - View all countries button
-- Animate clue generation?
 
 ### Feedback
 

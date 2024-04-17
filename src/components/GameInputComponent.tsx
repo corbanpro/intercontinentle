@@ -222,8 +222,8 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
                   : "";
               const toolTipText = `${ToolTips[clue.category].ToolTip} ${ranking}`;
               return (
-                <Tooltip text={toolTipText}>
-                  <div key={i} className="clue">
+                <Tooltip key={i} text={toolTipText}>
+                  <div className="clue">
                     <div className="clue-category">{ToolTips[clue.category].Clue}</div>
                     <div className="clue-fact">{clue.fact}</div>
                   </div>
