@@ -12,7 +12,6 @@ function App() {
   const [showCountryList, setShowCountryList] = useState(false);
   return (
     <div className="App">
-      <CountryList showCountryList={showCountryList} />
       <Header
         showMap={showMap}
         setShowMap={setShowMap}
@@ -20,6 +19,7 @@ function App() {
         showCountryList={showCountryList}
       />
       <GameInputComponent showMap={showMap} />
+      <CountryList showCountryList={showCountryList} setShowCountryList={setShowCountryList} />
     </div>
   );
 }

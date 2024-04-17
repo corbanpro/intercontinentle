@@ -4,11 +4,6 @@ li {
   margin-bottom: 5px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 .clue {
   display: flex;
   color: var(--body-text);
@@ -137,7 +132,6 @@ ul {
   z-index: 2;
   padding: 0;
   width: 100%;
-  list-style-type: none;
 }
 
 .country-submit-button {

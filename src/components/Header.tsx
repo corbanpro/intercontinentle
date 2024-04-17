@@ -29,7 +29,7 @@ function Header({ showMap, setShowMap, setShowCountryList, showCountryList }: TH
             Dark Mode
           </button>
           <button onClick={handleMapInputMode} className="setting-button">
-            Map Input Mode
+            Toggle Map Mode
           </button>
           <button onClick={handleShowCountryList} className="setting-button">
             Show Country List
