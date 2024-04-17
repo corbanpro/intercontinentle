@@ -207,6 +207,7 @@
   "ES": "Spain",
   "LK": "Sri Lanka",
   "SD": "Sudan",
+  "SS": "South Sudan",
   "SR": "Suriname",
   "SJ": "Svalbard And Jan Mayen",
   "SZ": "Swaziland",
@@ -244,5 +245,7 @@
   "EH": "Western Sahara",
   "YE": "Yemen",
   "ZM": "Zambia",
-  "ZW": "Zimbabwe"
+  "ZW": "Zimbabwe",
+  "SX": "Sint Maarten",
+  "CW": "Curaçao"
 }
