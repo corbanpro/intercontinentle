@@ -1,11 +1,12 @@
 .world-bg {
   fill: transparent;
-  stroke: transparent;
+  /* stroke: black; */
+  /* border: 1px solid var(--background); */
   fill: var(--ocean-background);
 }
 
 :root {
-  --ocean-background: #e9e9ff;
+  --ocean-background: #e9e9ff30;
 }
 
 .ocean {
@@ -31,7 +32,7 @@
   overflow: visible;
   text-align: center;
   width: 100%;
-  fill: var(--ocean-background);
+  fill: transparent;
 }
 
 .map-container {

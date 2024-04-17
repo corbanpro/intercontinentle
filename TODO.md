@@ -1,10 +1,9 @@
 ### Bugs
 
-- pointer cursor on buttons
-
 ### TODO
 
 - Success Modal finish
+- Failure Modal
 
 ### Feedback
 

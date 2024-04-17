@@ -25,7 +25,7 @@ function setColorScheme() {
     document.documentElement.style.setProperty("--placeholder-rgb", "140, 140, 139");
     root.style.setProperty("--photo", "#0D0D0D");
     document.documentElement.style.setProperty("--photo-rgb", "13, 13, 13");
-    root.style.setProperty("--ocean-background", "#e9e9ff");
+    root.style.setProperty("--ocean-background", "#e9e9ff30");
   } else {
     // setting dark mode
     root.classList.add("dark-mode");
