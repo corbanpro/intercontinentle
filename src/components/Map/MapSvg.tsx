@@ -1,9 +1,12 @@
+/**
+ * Corban Procuniar
+ */
+
 import React from "react";
 import "./Map.css"
-import mapDisplayText from "utils/mapDisplayText.json";
+import mapDisplayText from "data/countryAbbr.json"
 
 export default function MapSvg({ CountryClickHandler}: {CountryClickHandler: Function}) {
-
 
   return (
 		<>

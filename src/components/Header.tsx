@@ -1,4 +1,6 @@
-/* Header.tsx */
+/**
+ * Christopher Kearl
+ */
 import React from "react";
 import setColorScheme from "utils/setColorScheme";
 

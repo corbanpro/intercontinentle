@@ -1,3 +1,6 @@
+/**
+ * Corban Procuniar
+ */
 import React, { useRef } from "react";
 import { Transition } from "react-transition-group";
 import CountryJsonData from "data/countryData.json";
