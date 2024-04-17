@@ -1,10 +1,14 @@
 .world-bg {
   fill: transparent;
   stroke: transparent;
+  fill: var(--ocean-background);
+}
+
+:root {
+  --ocean-background: #e9e9ff;
 }
 
 .ocean {
-  fill: transparent;
   stroke: transparent;
   stroke-width: 1;
   stroke-miterlimit: 1;
@@ -24,14 +28,15 @@
 }
 
 .map {
-  width: 100%;
   overflow: visible;
-  position: absolute;
   text-align: center;
+  width: 100%;
+  fill: var(--ocean-background);
 }
 
 .map-container {
   position: relative;
   display: flex;
   justify-content: center;
+  width: 100%;
 }

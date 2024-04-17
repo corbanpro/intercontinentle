@@ -12,12 +12,10 @@ const CountryData: TCountries = CountryDataJson;
 const CountryAbbr: TCountryAbbr = CountryAbbrJson;
 
 type TMapProps = {
-  mapWidth: number;
-  mapAspectRatio: number;
   submitGuessHandler: (guess: string, e?: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export default function Map({ mapWidth, mapAspectRatio, submitGuessHandler }: TMapProps) {
+export default function Map({ submitGuessHandler }: TMapProps) {
   function CountryClickHandler(countryCode: string) {
     submitGuessHandler(
       CountryData[countryCode.toLowerCase()]?.Country.value ??
@@ -26,13 +24,9 @@ export default function Map({ mapWidth, mapAspectRatio, submitGuessHandler }: TM
   }
 
   return (
-    <div className="map-container" style={{ minHeight: mapWidth * mapAspectRatio }}>
+    <div className="map-container">
       <div className="map">
-        <MapSvg
-          mapWidth={mapWidth}
-          mapAspectRatio={mapAspectRatio}
-          CountryClickHandler={CountryClickHandler}
-        />
+        <MapSvg CountryClickHandler={CountryClickHandler} />
       </div>
     </div>
   );

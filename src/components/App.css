@@ -27,6 +27,10 @@
   padding: 0;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .syne-header {
   font-family: "Syne", sans-serif;
   font-optical-sizing: auto;
@@ -61,7 +65,7 @@ body {
   justify-content: space-around;
   color: var(--header-text);
   width: 100%;
-  margin: 4rem 0 2rem;
+  margin: 2rem 0 0.5rem;
 }
 
 .app-settings {
@@ -81,12 +85,13 @@ body {
   font-family: "Syne", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   font-style: normal;
   margin: 0.25rem;
-  padding: 0.5rem;
+  padding: 0.2rem;
   width: 12rem;
   border: 3px solid var(--photo);
+  cursor: pointer;
   /* background-image: radial-gradient(
     circle,
     rgba(var(--accent-rgb), 0.5) 0%,

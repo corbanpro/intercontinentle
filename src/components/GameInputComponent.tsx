@@ -22,7 +22,8 @@ function ClueAlreadyUsed(clueCategory: string, existingClues: TClue[]): boolean 
 function GetRandomClueCategory(countryData: TCountryData, existingClues: TClue[]): string {
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
-    (clue) => !["Country", "Abbreviation", "Paragraph", "Landlocked"].includes(clue)
+    (clue) =>
+      !["Country", "Abbreviation", "Paragraph", "Landlocked", "ExportPartners"].includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
@@ -130,11 +131,12 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
   }, [correctCountryData]);
 
   const nodeRef = useRef(null);
+  const mapCluesContainer = useRef(null);
 
   return (
     <div className="game-container">
       <div className="game-input-component" data-testid="game-input-component">
-        <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
+        <form onSubmit={(e) => submitGuessHandler(inputValue, e)} className="form">
           <div className="form-container">
             <div className="input-box-wrapper">
               <input
@@ -162,84 +164,82 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
               </div>
             </div>
             <div className="country-submit-button">
-              <input className="guess-submit" type="submit" value="make a guess"></input>
+              <input className="guess-submit pointer" type="submit" value="make a guess"></input>
             </div>
           </div>
         </form>
-        <Transition in={showMap} timeout={300} mountOnEnter unmountOnExit>
-          {(state) => {
-            const mapWidth = window.innerWidth / 2;
-            const mapAspectRatio = 507.209 / 1000;
-            const mapHeight = mapWidth * mapAspectRatio;
-            const defaultStyle = {
-              transition: `height 300ms ease-in-out`,
-              height: mapHeight,
-              overflowY: "hidden",
-            };
+        <div className="map-clues-container" ref={mapCluesContainer}>
+          <Transition in={showMap} timeout={300} mountOnEnter unmountOnExit>
+            {(state) => {
+              const defaultStyle = {
+                transition: `all 300ms ease-in-out`,
+                overflow: "hidden",
+                flex: 1,
+              };
 
-            const transitionStyles: any = {
-              entering: { height: mapHeight },
-              entered: { height: mapHeight },
-              exiting: { height: 0 },
-              exited: { height: 0 },
-            };
-            return (
-              <div
-                ref={nodeRef}
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state],
-                }}
-              >
-                <Map
-                  mapWidth={mapWidth}
-                  mapAspectRatio={mapAspectRatio}
-                  submitGuessHandler={submitGuessHandler}
-                />
-              </div>
-            );
-          }}
-        </Transition>
-
-        <div className="game-logic-container">
-          <div className="clues-wrapper">
-            <h3>Clues:</h3>
-            {clues.map((clue, i) => {
-              const percentile = Math.round(
-                ((195 - Number(correctCountryData[clue.category].ranking)) / 195) * 100
-              );
-              const suffix =
-                percentile % 10 === 1
-                  ? "st"
-                  : percentile % 10 === 2
-                    ? "nd"
-                    : percentile % 10 === 3
-                      ? "rd"
-                      : "th";
-              const ranking =
-                correctCountryData[clue.category].ranking !== "NA"
-                  ? `This country is in the ${percentile}${suffix} percentile.`
-                  : "";
-              const toolTipText = `${ToolTips[clue.category].ToolTip} ${ranking}`;
+              const transitionStyles: any = {
+                entering: { flex: 1 },
+                entered: { flex: 1 },
+                exiting: { flex: 0 },
+                exited: { flex: 0 },
+              };
               return (
-                <Tooltip key={i} text={toolTipText}>
-                  <div className="clue">
-                    <div className="clue-category">{ToolTips[clue.category].Clue}</div>
-                    <div className="clue-fact">{clue.fact}</div>
-                  </div>
-                </Tooltip>
+                <div
+                  ref={nodeRef}
+                  style={{
+                    ...defaultStyle,
+                    ...transitionStyles[state],
+                  }}
+                >
+                  <Map submitGuessHandler={submitGuessHandler} />
+                </div>
               );
-            })}
-          </div>
-          <div className="guess-wrapper">
-            <h3>Guesses:</h3>
-            <ul>
+            }}
+          </Transition>
+
+          <div className="game-logic-container">
+            <div className="clues-wrapper">
+              <h3>Clues</h3>
+              <hr style={{ width: "100%" }} />
+              {clues.map((clue, i) => {
+                const percentile = Math.round(
+                  ((195 - Number(correctCountryData[clue.category].ranking)) / 195) * 100
+                );
+                const suffix =
+                  percentile % 10 === 1
+                    ? "st"
+                    : percentile % 10 === 2
+                      ? "nd"
+                      : percentile % 10 === 3
+                        ? "rd"
+                        : "th";
+                const ranking =
+                  correctCountryData[clue.category].ranking !== "NA"
+                    ? `This country is in the ${percentile}${suffix} percentile.`
+                    : "";
+                const toolTipText = `${ToolTips[clue.category].ToolTip} ${ranking}`;
+                return (
+                  <Tooltip key={i} text={toolTipText}>
+                    <div className="clue">
+                      <div className="clue-category">{ToolTips[clue.category].Clue}</div>
+                      <div className="">{clue.fact}</div>
+                    </div>
+                  </Tooltip>
+                );
+              })}
+            </div>
+            <div className="guess-wrapper">
+              <h3>Guesses</h3>
+              <hr />
+
               {userGuesses.map((entry, i) => (
-                <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
-                  {entry.value}
-                </li>
+                <div className="clue row-reverse">
+                  <div key={i} className=" right-align clue-category">
+                    {entry.value}
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -23,8 +23,9 @@ function setColorScheme() {
     document.documentElement.style.setProperty("--header-btn-text-rgb", "19, 60, 85");
     root.style.setProperty("--placeholder", "#8C8C8B");
     document.documentElement.style.setProperty("--placeholder-rgb", "140, 140, 139");
-    root.style.setProperty("--photo", "#133C55");
+    root.style.setProperty("--photo", "#0D0D0D");
     document.documentElement.style.setProperty("--photo-rgb", "13, 13, 13");
+    root.style.setProperty("--ocean-background", "#e9e9ff");
   } else {
     // setting dark mode
     root.classList.add("dark-mode");
@@ -42,6 +43,7 @@ function setColorScheme() {
     document.documentElement.style.setProperty("--placeholder-rgb", "140, 140, 139");
     root.style.setProperty("--photo", "#F8F9F1");
     document.documentElement.style.setProperty("--photo-rgb", "248, 249, 241");
+    root.style.setProperty("--ocean-background", "transparent");
   }
 }
 

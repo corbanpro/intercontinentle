@@ -35,7 +35,11 @@ function Header({ showMap, setShowMap, setShowCountryList, showCountryList }: TH
             Show Country List
           </button>
         </div>
-        <h1>intercontinentle</h1>
+        <div>
+          <h1>intercontinentle</h1>
+          <div style={{ textAlign: "center" }}>How well do you know your neighbors?</div>
+        </div>
+
         <div className="header-spacer">Spacer</div>
       </header>
     </>

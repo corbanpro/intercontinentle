@@ -1,12 +1,10 @@
 ### Bugs
 
-- button text on dark mode
-- gradient buttons
+- pointer cursor on buttons
 
 ### TODO
 
 - Success Modal finish
-- View all countries button
 
 ### Feedback
 
