@@ -1,11 +1,12 @@
 /* GameInputComponent.tsx */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./GameInputComponent.css";
 import { TClue, TCountries, TCountryData, TGuess } from "types/Country";
 import CountryJsonData from "data/countryData.json";
 import Map from "./Map/Map";
 import { ToolTips } from "data/tooltips";
 import CountryModal from "./CountryModal/CountryModal";
+import { Transition } from "react-transition-group";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -127,45 +128,77 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
     console.log(correctCountryData.Country.value);
   }, [correctCountryData]);
 
+  const nodeRef = useRef(null);
+
   return (
     <div className="game-container">
       <div className="game-input-component" data-testid="game-input-component">
-        {showMap ? (
-          <Map submitGuessHandler={submitGuessHandler} />
-        ) : (
-          <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
-            <div className="form-container">
-              <div className="input-box-wrapper">
-                <input
-                  type="text"
-                  placeholder="Enter country"
-                  className="country-input"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                />
-                <div className="country-suggestion-container">
-                  {showFilteredCountries &&
-                    filteredCountryNames.map((country, i) => {
-                      if (i > 10) return null;
-                      return (
-                        <button
-                          key={i}
-                          type="button"
-                          className="country-suggestion"
-                          onClick={() => setInputValue(country)}
-                        >
-                          {country}
-                        </button>
-                      );
-                    })}
-                </div>
-              </div>
-              <div className="country-submit-button">
-                <input className="guess-submit" type="submit" value="make a guess"></input>
+        <form onSubmit={(e) => submitGuessHandler(inputValue, e)}>
+          <div className="form-container">
+            <div className="input-box-wrapper">
+              <input
+                type="text"
+                placeholder="Enter country"
+                className="country-input"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <div className="country-suggestion-container">
+                {showFilteredCountries &&
+                  filteredCountryNames.map((country, i) => {
+                    if (i > 10) return null;
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className="country-suggestion"
+                        onClick={() => setInputValue(country)}
+                      >
+                        {country}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
-          </form>
-        )}
+            <div className="country-submit-button">
+              <input className="guess-submit" type="submit" value="make a guess"></input>
+            </div>
+          </div>
+        </form>
+        <Transition in={showMap} timeout={300} mountOnEnter unmountOnExit>
+          {(state) => {
+            const mapWidth = window.innerWidth / 2;
+            const mapAspectRatio = 507.209 / 1000;
+            const mapHeight = mapWidth * mapAspectRatio;
+            const defaultStyle = {
+              transition: `height 300ms ease-in-out`,
+              height: mapHeight,
+              overflowY: "hidden",
+            };
+
+            const transitionStyles: any = {
+              entering: { height: mapHeight },
+              entered: { height: mapHeight },
+              exiting: { height: 0 },
+              exited: { height: 0 },
+            };
+            return (
+              <div
+                ref={nodeRef}
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state],
+                }}
+              >
+                <Map
+                  mapWidth={mapWidth}
+                  mapAspectRatio={mapAspectRatio}
+                  submitGuessHandler={submitGuessHandler}
+                />
+              </div>
+            );
+          }}
+        </Transition>
 
         <div className="game-logic-container">
           <div className="clues-wrapper">

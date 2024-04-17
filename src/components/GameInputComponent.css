@@ -193,3 +193,19 @@ ul {
   justify-content: space-between;
   width: 100%;
 }
+
+.map-container {
+  transition: all 0.5s ease;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.map-hide {
+  height: 0;
+  overflow: hidden;
+}
+.map-show {
+  height: 400px;
+  overflow-y: hidden;
+}
