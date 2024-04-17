@@ -7,6 +7,7 @@ import Map from "./Map/Map";
 import { ToolTips } from "data/tooltips";
 import CountryModal from "./CountryModal/CountryModal";
 import { Transition } from "react-transition-group";
+import Tooltip from "./Tooltip";
 
 const CountryData: TCountries = CountryJsonData;
 
@@ -203,24 +204,42 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
         <div className="game-logic-container">
           <div className="clues-wrapper">
             <h3>Clues:</h3>
-            {clues.map((clue, i) => (
-              <div key={i} className="clue">
-                <div className="clue-category">{ToolTips[clue.category].Clue}</div>
-                <div className="clue-fact">{clue.fact}</div>
-              </div>
-            ))}
+            {clues.map((clue, i) => {
+              const percentile = Math.round(
+                ((195 - Number(correctCountryData[clue.category].ranking)) / 195) * 100
+              );
+              const suffix =
+                percentile % 10 === 1
+                  ? "st"
+                  : percentile % 10 === 2
+                    ? "nd"
+                    : percentile % 10 === 3
+                      ? "rd"
+                      : "th";
+              const ranking =
+                correctCountryData[clue.category].ranking !== "NA"
+                  ? `This country is in the ${percentile}${suffix} percentile.`
+                  : "";
+              const toolTipText = `${ToolTips[clue.category].ToolTip} ${ranking}`;
+              return (
+                <Tooltip text={toolTipText}>
+                  <div key={i} className="clue">
+                    <div className="clue-category">{ToolTips[clue.category].Clue}</div>
+                    <div className="clue-fact">{clue.fact}</div>
+                  </div>
+                </Tooltip>
+              );
+            })}
           </div>
-          <div className="guesses-wrapper">
-            <div className="guess-wrapper">
-              <h3>Guesses:</h3>
-              <ul>
-                {userGuesses.map((entry, i) => (
-                  <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
-                    {entry.value}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="guess-wrapper">
+            <h3>Guesses:</h3>
+            <ul>
+              {userGuesses.map((entry, i) => (
+                <li key={i} className={entry.isCorrect ? "correct" : "incorrect"}>
+                  {entry.value}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

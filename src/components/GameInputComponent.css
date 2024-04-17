@@ -28,7 +28,8 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-size: 1.2rem;
+  font-size: 1.45rem;
+  position: relative;
   text-align: left;
   width: 100%;
   color: var(--body-text);
@@ -192,6 +193,7 @@ ul {
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 150px;
 }
 
 .map-container {
