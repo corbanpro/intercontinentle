@@ -1,4 +1,3 @@
-/* GameInputComponent.tsx */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./GameInputComponent.css";
 import { TClue, TCountries, TCountryData, TGuess } from "types/Country";
@@ -23,7 +22,8 @@ function GetRandomClueCategory(countryData: TCountryData, existingClues: TClue[]
   const randNumber = Math.floor(Math.random() * 999999);
   const allClueCategories = Object.keys(countryData).filter(
     (clue) =>
-      !["Country", "Abbreviation", "Paragraph", "Landlocked", "ExportPartners"].includes(clue)
+      !["Country", "Abbreviation", "Paragraph", "Landlocked", "ExportPartners"]
+      .includes(clue)
   );
   const randClueCategory = allClueCategories[randNumber % allClueCategories.length];
 
@@ -70,14 +70,7 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
   const [inputValue, setInputValue] = useState<string>("");
   const [userGuesses, setGuesses] = useState<TGuess[]>([]);
 
-  const RestartGame = useCallback(() => {
-    const newCountryData = GetRandomCountry(allCountryAbbrs);
-    setGuesses([]);
-    setClues([]);
-    setCorrectCountryData(newCountryData);
-    setClues(GetInitialClues(newCountryData));
-    setInputValue("");
-  }, [allCountryAbbrs]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function submitGuessHandler(guess: string | undefined, e?: React.FormEvent<HTMLFormElement>) {
     if (e) e.preventDefault();
@@ -90,27 +83,8 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
     }
     const userGuess = { value: guess ?? "", isCorrect };
 
-    if (isCorrect) {
-      const modalContainer = document.getElementById("modal-container");
-      modalContainer?.classList.add("show-modal");
-      modalContainer?.style.setProperty("display", "flex");
-
-      // TODO: implement modal close button, play again button
-      // const playAgain = window.confirm(
-      //   "Congratulations! You guessed the correct country! Play again?"
-      // );
-      // if (playAgain) {
-      //   RestartGame();
-      // }
-      return;
-    }
-    if (userGuesses.length >= maxGuesses) {
-      const playAgain = window.confirm(
-        `Sorry, you didn't guess the correct country. The correct country was ${correctCountryData.Country.value}. Play again?`
-      );
-      if (playAgain) {
-        RestartGame();
-      }
+    if (isCorrect || userGuesses.length >= maxGuesses) {
+      setIsModalOpen(true);
       return;
     }
 
@@ -118,6 +92,19 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
     setGuesses([...userGuesses, userGuess]);
     setInputValue("");
   }
+
+  const restartGame = useCallback(() => {
+    const newCountryData = GetRandomCountry(allCountryAbbrs);
+    setGuesses([]);
+    setClues([]);
+    setCorrectCountryData(newCountryData);
+    setClues(GetInitialClues(newCountryData));
+    setInputValue("");
+  }, [allCountryAbbrs]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const allCountryNames = Object.values(CountryData).map((country) => country.Country.value);
 
@@ -243,9 +230,17 @@ function GameInputComponent({ showMap }: { showMap: boolean }) {
           </div>
         </div>
       </div>
-      <CountryModal correctCountryData={correctCountryData} />
+      {isModalOpen && (
+        <CountryModal
+          correctCountryData={correctCountryData}
+          closeModal={closeModal}
+          restartGame={restartGame}
+          isModalOpen={isModalOpen}
+        />
+      )}
     </div>
   );
 }
 
 export default GameInputComponent;
+

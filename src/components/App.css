@@ -17,6 +17,7 @@
   --placeholder-rgb: 140, 140, 139;
   --photo: #0d0d0d;
   --photo-rgb: 13, 13, 13;
+  --incorrect: #E28979;
 }
 
 *,
@@ -127,4 +128,8 @@ body {
   visibility: hidden;
   width: 12rem;
   margin: 0.25rem;
+}
+
+.modal-open {
+  background-color: var(--placeholder);
 }
