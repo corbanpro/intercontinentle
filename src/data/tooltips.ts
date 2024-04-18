@@ -152,7 +152,7 @@ export const ToolTips: TToolTips = {
   },
   Longitude: {
     Clue: "Longitude",
-    ToolTip: "Longitude coordinate of the country's location.}",
+    ToolTip: "Longitude coordinate of the country's location.",
     Category: "Geography",
   },
   MaternalMortalityRatio: {
