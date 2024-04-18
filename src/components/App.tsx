@@ -11,7 +11,7 @@ function App() {
   const [showMap, setShowMap] = useState(true);
   const [showCountryList, setShowCountryList] = useState(false);
   return (
-    <div className="App">
+    <div id="App" className="App">
       <Header
         showMap={showMap}
         setShowMap={setShowMap}
